@@ -9,7 +9,7 @@ const SimplePost = ({ postId, postData }) => {
         <div id={postId}>
             <h3><b>{postData.title}</b></h3>
             <p>{postData.description}</p>
-            <p>{postData.createdOn}</p>
+            <p>Posted on: {postData.createdOn}</p>
             <p>{postData.author}</p>
             {userData && <button>Like</button>}
             {/* {userData && <button>Comment</button>} Move to Single view*/}
