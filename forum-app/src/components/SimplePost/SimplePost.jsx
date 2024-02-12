@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 const SimplePost = ({ postId, postData }) => {
-    const {userData} = useContext(AuthContext);
+    const { userData } = useContext(AuthContext);
 
     return (
         <div id={postId}>
@@ -14,12 +14,10 @@ const SimplePost = ({ postId, postData }) => {
             {userData && <button>Like</button>}
             {/* {userData && <button>Comment</button>} Move to Single view*/}
             <button>More</button>
-            {userData.username === postData.author && (
-                <>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </>
-            )}
+            {userData.username === postData.author && <button>Edit</button>}
+            {userData.username === postData.author || userData.role === 'admin' && <button>Delete</button>}
+
+
         </div>
     )
 }
