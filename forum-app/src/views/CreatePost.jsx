@@ -9,7 +9,7 @@ export default function CreatePost() {
     title: '',
     description: '',
     category: '',
-    author: userData.username,
+    author: userData ? userData.username : '',
     imgUrl: '',
   });
   const toast = useToast();
