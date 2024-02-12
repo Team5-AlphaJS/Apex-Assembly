@@ -14,6 +14,7 @@ import About from './components/About/About';
 import Footer from './components/Footer/Footer';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AuthGuard from './hoc/AuthGuard';
+import { Grid } from '@chakra-ui/react';
 
 function App() {
   const [context, setContext] = useState({
@@ -23,10 +24,13 @@ function App() {
 
   const [user] = useAuthState(auth);
 
+  if (context.user !== user) {
+    setContext({ user });
+  }
+
   useEffect(() => {
-    if (user === null) {
-      return;
-    }
+    if (user === null) return;
+  
     getUserData(user.uid)
       .then((snapshot) => {
         if (!snapshot.exists()) {
@@ -44,18 +48,20 @@ function App() {
     <>
       <BrowserRouter>
         <AuthContext.Provider value={{ ...context, setUser: setContext }}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
-            <Route path="*" element={<NotFound />} />
-            {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
-          </Routes>
-          <Footer />
+          <Grid templateRows="auto 1fr auto" minHeight="100vh">
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
+              <Route path="*" element={<NotFound />} />
+              {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
+            </Routes>
+            <Footer />
+          </Grid>
         </AuthContext.Provider>
       </BrowserRouter>
     </>
