@@ -20,6 +20,6 @@ export const getAllPosts = () => {
 export const uploadPost = (post) => {
     return push(ref(db, 'posts'), {
         ...post,
-        cratedOn: new Date()
+        createdOn: Date.now()
     });
 }
