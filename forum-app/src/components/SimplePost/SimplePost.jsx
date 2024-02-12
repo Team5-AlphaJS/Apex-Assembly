@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const SimplePost = ({ postId, postData }) => {
     const { userData } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     if (userData) {
         return (
@@ -15,7 +17,7 @@ const SimplePost = ({ postId, postData }) => {
                 {userData && <button>Like</button>}
                 {/* {userData && <button>Comment</button>} Move to Single view*/}
                 <button>More</button>
-                {userData.username === postData.author && <button>Edit</button>}
+                {userData.username === postData.author && <button onClick={() => navigate(`/edit-post/${postId}`)}>Edit</button>}
                 {userData.username === postData.author || userData.role === 'admin' ? <button>Delete</button>: <></>}
             </div>
         )
