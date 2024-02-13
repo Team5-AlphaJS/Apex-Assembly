@@ -14,7 +14,7 @@ import About from './components/About/About';
 import Footer from './components/Footer/Footer';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AuthGuard from './hoc/AuthGuard';
-import { Grid } from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 
 function App() {
   const [context, setContext] = useState({
@@ -48,19 +48,33 @@ function App() {
     <>
       <BrowserRouter>
         <AuthContext.Provider value={{ ...context, setUser: setContext }}>
-          <Grid templateRows="auto 1fr auto" minHeight="100vh">
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
-              <Route path="*" element={<NotFound />} />
-              {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
-            </Routes>
-            <Footer />
+          <Grid
+            templateAreas={`"header" "main" "footer"`}
+            templateRows="70px 1fr 60px" 
+            minHeight="100vh"
+            gap={1}
+            width="100%"
+          >
+            <GridItem area={'header'} position={'sticky'} top={0}>
+              <Header />
+            </GridItem>
+            <GridItem area={'main'}>
+              <Box mt="25px">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
+                  <Route path="*" element={<NotFound />} />
+                  {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
+                </Routes>
+              </Box>
+            </GridItem>
+            <GridItem area={'footer'} justifyContent={'center'} textAlign={'center'} position={'sticky'} bottom={0}>
+              <Footer />
+            </GridItem>
           </Grid>
         </AuthContext.Provider>
       </BrowserRouter>

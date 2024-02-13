@@ -25,20 +25,31 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <Box
+      borderTop="5px solid"
+      borderTopColor={"orange.400"}
+      shadow={"md"}
+      height="70px"
+      px="4"
+      align="center"
+      justifyContent="space-between"
+      display="flex"
+      alignItems={"center"}
+      bg="white"
+    >
       <NavLink to="/">
-        <Image src={logo} alt="logo" display={"inline-block"} mr={1} />
-        <Text color={"black"} display={"inline-block"} position={'absolute'} top={'1'}>Apex Assembly</Text>
+        <Image src={logo} alt="logo" mr={1} />
+        <Text color={"black"}>Apex Assembly</Text>
       </NavLink>
-      <Box>
-      <NavLink to="/">Home </NavLink>
-      { user && <NavLink to="/categories">Categories </NavLink> }
-      { user && <NavLink to="/create-post">Create post </NavLink> }
-      { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin </NavLink>}
+      
+      <NavLink to="/">Home</NavLink>
+      { user && <NavLink to="/categories">Categories</NavLink> }
+      { user && <NavLink to="/create-post">Create post</NavLink> }
+      { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
       { user 
         ? (
           <>
-            {`Welcome, ${userData?.username} `}
+            {`Welcome, ${userData?.username}`}
             <Menu>
               <MenuButton as={Box} display={'inline-block'} cursor={'pointer'}>
                 <Avatar name={userData?.username} src={userData?.avatarUrl} size="sm" mr={1} />
@@ -52,10 +63,9 @@ export default function Header() {
           </>
         )
         : (<>
-          <NavLink to="/login">Login </NavLink>
-          <NavLink to="/register">Register </NavLink>
+          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/register">Register</NavLink>
         </>) }
-      </Box>
-    </header>
+  </Box>
   );
 }
