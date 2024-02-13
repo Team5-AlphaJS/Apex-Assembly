@@ -6,8 +6,8 @@ import SimplePost from "../components/SimplePost/SimplePost";
 
 export default function Browse() {
   const [posts, setPosts] = useState([]);
-  
-  useEffect (() => {
+
+  useEffect(() => {
     Promise.all([getAllPosts()])
       .then(([postSnapshot]) => {
         setPosts(Object.entries(postSnapshot.val()));
@@ -19,6 +19,8 @@ export default function Browse() {
     <div>
       <Container maxW="100%">
         <Heading textAlign={'center'} mb={3}>All posts</Heading>
+        <div>Sort</div>
+        <div>Filter</div>
         <Flex direction={'column'} mx={4}>
           {posts.map(post => {
             const [postId, postData] = post
@@ -26,7 +28,7 @@ export default function Browse() {
           })}
         </Flex>
       </Container>
-      
+
     </div>
   );
 }
