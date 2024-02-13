@@ -26,12 +26,12 @@ export default function Home() {
         <Heading textAlign={'center'} size={'md'}>A forum about everything Formula 1.</Heading>
         <Flex mb={8} mt={8}>
           <Box p={4} bgColor={"gray.300"} borderRadius="md" flex="1" mx={4}>
-            <Heading textAlign={'center'} size={'md'} mb={2}>Total Users</Heading>
-            <Text fontSize="xl" textAlign={'center'}>{totalUsers}</Text>
+            <Heading textAlign={'center'} size={'md'} mb={2} color={'black'}>Total Users</Heading>
+            <Text fontSize="xl" textAlign={'center'} color={'black'}>{totalUsers}</Text>
           </Box>
           <Box p={4} bgColor={"gray.300"} borderRadius="md" flex="1" mx={4}>
-            <Heading textAlign={'center'} size="md" mb={2}>Total Posts</Heading>
-            <Text fontSize="xl" textAlign={'center'}>{totalPosts}</Text>
+            <Heading textAlign={'center'} size="md" mb={2} color={'black'}>Total Posts</Heading>
+            <Text fontSize="xl" textAlign={'center'} color={'black'}>{totalPosts}</Text>
           </Box>
         </Flex>
         <Flex direction={'column'} mx={4}>

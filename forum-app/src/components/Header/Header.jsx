@@ -2,14 +2,17 @@ import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { logoutUser } from "../../services/auth.service";
-import { Avatar, Box, Button, Image, Menu, MenuButton, MenuItem, MenuList, Text, useToast } from "@chakra-ui/react";
-import logo from '../../assets/black-helmet.svg';
-import { FiEdit, FiUser } from "react-icons/fi";
+import { Avatar, Box, Button, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react";
+import blackLogo from '../../assets/black-helmet.svg';
+import whiteLogo from '../../assets/white-helmet.svg';
+import { FiEdit, FiMoon, FiSun, FiUser } from "react-icons/fi";
 
 export default function Header() {
   const { user, userData, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const toast = useToast();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const isDarkMode = useColorModeValue(false, true);
 
   const logout = async () => {
     await logoutUser();
@@ -35,11 +38,11 @@ export default function Header() {
       justifyContent="space-between"
       display="flex"
       alignItems={"center"}
-      bg="white"
+      bg={isDarkMode ? "gray.800" : "white"}
     >
       <NavLink to="/">
-        <Image src={logo} alt="logo" mr={1} />
-        <Text color={"black"}>Apex Assembly</Text>
+      <Image src={isDarkMode ? whiteLogo : blackLogo} alt="logo" />
+      <Text>Apex Assembly</Text>
       </NavLink>
       
       <NavLink to="/">Home</NavLink>
@@ -66,6 +69,13 @@ export default function Header() {
           <NavLink to="/login">Login</NavLink>
           <NavLink to="/register">Register</NavLink>
         </>) }
+        <IconButton
+          icon={isDarkMode ? <FiSun /> : <FiMoon />}
+          size="md"
+          ml={5}
+          onClick={toggleColorMode}
+          color={colorMode}
+        />
   </Box>
   );
 }
