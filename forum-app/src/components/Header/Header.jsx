@@ -46,7 +46,7 @@ export default function Header() {
       </NavLink>
       
       <NavLink to="/">Home</NavLink>
-      { user && <NavLink to="/categories">Categories</NavLink> }
+      { user && <NavLink to="/browse">Browse</NavLink> }
       { user && <NavLink to="/create-post">Create post</NavLink> }
       { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
       { user 

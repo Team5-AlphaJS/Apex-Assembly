@@ -15,6 +15,7 @@ import Footer from './components/Footer/Footer';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AuthGuard from './hoc/AuthGuard';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
+import Browse from './views/Browse';
 
 function App() {
   const [context, setContext] = useState({
@@ -63,6 +64,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/home" element={<Home />} />
+                  <Route path="/browse" element={<Browse />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
