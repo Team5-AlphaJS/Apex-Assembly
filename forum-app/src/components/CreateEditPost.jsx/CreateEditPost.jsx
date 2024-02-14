@@ -70,7 +70,7 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
                 <option value="teams">teams</option>
                 <option value="cars">cars</option>
             </select><br />
-            <input type="text" placeholder="Image url" value={post.imgUrl} onChange={updatePost('imgUrl')} />
+            <input type="text" placeholder="Image Url (optional)" value={post.imgUrl} onChange={updatePost('imgUrl')} />
             <Button type="submit" colorScheme="green" bg="green.300" size={'md'} w={150}
                 isLoading={isLoading} loadingText={onEdit ? 'Saving' : 'Publishing'} onClick={onSubmit}
             >

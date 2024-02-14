@@ -59,7 +59,7 @@ function App() {
               minWidth='100vw'
               gap={1}
             >
-              <GridItem area={'header'} position={'sticky'} top={0}>
+              <GridItem area={'header'} position={'sticky'} top={0} zIndex={10}>
                 <Header />
               </GridItem>
               <GridItem area={'main'}>

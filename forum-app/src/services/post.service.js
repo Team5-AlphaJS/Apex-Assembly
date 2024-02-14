@@ -7,7 +7,8 @@ import {
     query,
     equalTo,
     orderByChild,
-    orderByKey
+    orderByKey,
+    remove
 } from 'firebase/database';
 
 import { db } from '../config/firebase-config'; 
@@ -20,6 +21,9 @@ export const getPost = async (postId) => {
     return get(ref(db, `posts/${postId}`))
 }
 
+export const deletePost = async (postId) => {
+  await remove(ref(db, `posts/${postId}`));
+};
 
 export const uploadPost = async (post) => {
     return push(ref(db, 'posts'), {

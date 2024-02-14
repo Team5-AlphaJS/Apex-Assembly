@@ -56,7 +56,7 @@ export default function Header() {
             {`Welcome, ${userData?.username}`}
             <Menu>
               <MenuButton as={Box} display={'inline-block'} cursor={'pointer'}>
-                <Avatar name={userData?.username} src={userData?.avatarUrl} size="sm" mr={1} />
+                <Avatar name={userData?.username} src={userData?.avatarUrl} size="md" mr={1} />
               </MenuButton>
               <MenuList>
                 <MenuItem as={NavLink} to={`/user/edit`} icon={<FiEdit />}>Edit User</MenuItem>
