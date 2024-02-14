@@ -15,6 +15,7 @@ import Footer from './components/Footer/Footer';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AuthGuard from './hoc/AuthGuard';
 import { Grid } from '@chakra-ui/react';
+import EditPost from './views/EditPost';
 
 function App() {
   const [context, setContext] = useState({
@@ -57,6 +58,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
+              <Route path="/edit-post/:id" element={<AuthGuard><EditPost /></AuthGuard>} />
               <Route path="*" element={<NotFound />} />
               {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
             </Routes>

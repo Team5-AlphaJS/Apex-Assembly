@@ -16,7 +16,7 @@ const SimplePost = ({ postId, postData }) => {
             {userData && <button>Like</button>}
             {/* {userData && <button>Comment</button>} Move to Single view*/}
             <button>More</button>
-            {userData && userData.username === postData.author && <button>Edit</button>}
+            {userData && userData.username === postData.author && <button onClick={() => navigate(`/edit-post/${postId}`)}>Edit</button>}
             {userData && (userData.username === postData.author || userData.role === 'admin') && <button>Delete</button>}
 
 
