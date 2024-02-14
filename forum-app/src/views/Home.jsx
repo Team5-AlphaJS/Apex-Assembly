@@ -20,10 +20,25 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <Box>
       <Container maxW="100%">
-        <Heading textAlign={'center'} mb={3}>Welcome to Team 5&apos;s Apex Assembly</Heading>
-        <Heading textAlign={'center'} size={'md'}>A forum about everything Formula 1.</Heading>
+        <Box bgImage="https://c4.wallpaperflare.com/wallpaper/442/68/841/ayrton-senna-helmet-gloves-formula-1-mclaren-mp4-hd-wallpaper-preview.jpg"
+            bgSize={'cover'}
+            w={'99%'}
+            bgPosition="center"
+            color="white"
+            textAlign="center"
+            mb={'2rem'}
+            py={20}>
+        <Heading textAlign={'center'} mb={3} style={{
+                WebkitTextStroke: '1px black',
+                textStroke: '1px black',
+            }}>Welcome to Team 5&apos;s Apex Assembly</Heading>
+        <Heading textAlign={'center'} size={'md'} style={{
+                WebkitTextStroke: '1px black',
+                textStroke: '1px black',
+            }}>A forum about everything Formula 1.</Heading>
+        </Box>
         <Flex mb={8} mt={8}>
           <Box p={4} bgColor={"gray.300"} borderRadius="md" flex="1" mx={4}>
             <Heading textAlign={'center'} size={'md'} mb={2} color={'black'}>Total Users</Heading>
@@ -41,6 +56,6 @@ export default function Home() {
           })}
         </Flex>
       </Container>
-    </div>
+    </Box>
   );
 }

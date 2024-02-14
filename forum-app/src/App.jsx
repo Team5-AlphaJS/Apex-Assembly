@@ -17,6 +17,8 @@ import AuthGuard from './hoc/AuthGuard';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import Browse from './views/Browse';
 import EditPost from './views/EditPost';
+import UserDetails from './components/Users/UserDetails';
+import EditUser from './components/Users/EditUser';
 
 function App() {
   const [context, setContext] = useState({
@@ -54,8 +56,8 @@ function App() {
               templateAreas={`"header" "main" "footer"`}
               templateRows="70px 1fr 60px"
               minHeight="100vh"
+              minWidth='100vw'
               gap={1}
-              width="100%"
             >
               <GridItem area={'header'} position={'sticky'} top={0}>
                 <Header />
@@ -71,6 +73,8 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
                     <Route path="/edit-post/:id" element={<AuthGuard><EditPost /></AuthGuard>} />
+                    <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} /></AuthGuard>} />
+                    <Route path="/user/edit" element={<AuthGuard><EditUser/></AuthGuard>} />
                     <Route path="*" element={<NotFound />} />
                     {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
                   </Routes>

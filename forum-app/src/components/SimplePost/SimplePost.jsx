@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { Image } from '@chakra-ui/react';
 
 const SimplePost = ({ postId, postData }) => {
     const { userData } = useContext(AuthContext);
@@ -10,7 +11,9 @@ const SimplePost = ({ postId, postData }) => {
     return (
         <div id={postId}>
             <h3><b>{postData.title}</b></h3>
+            {postData?.imgUrl && <Image src={postData?.imgUrl} alt='Post Photo'/>}
             <p>{postData.description}</p>
+            <p>Category: {postData.category}</p>
             <p>Posted on: {new Date(postData.createdOn).toLocaleDateString()}</p>
             <p>Posted by: {postData.author}</p>
             {userData && <button>Like</button>}

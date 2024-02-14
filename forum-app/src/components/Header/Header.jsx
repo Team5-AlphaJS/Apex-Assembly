@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { logoutUser } from "../../services/auth.service";
 import { Avatar, Box, Button, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react";
@@ -31,6 +31,7 @@ export default function Header() {
     <Box
       borderTop="5px solid"
       borderTopColor={"orange.400"}
+      borderBottom="2px solid"
       shadow={"md"}
       height="70px"
       px="4"
@@ -38,12 +39,12 @@ export default function Header() {
       justifyContent="space-between"
       display="flex"
       alignItems={"center"}
-      bg={isDarkMode ? "gray.800" : "white"}
+      bg={isDarkMode ? "gray.900" : "gray.200"}
     >
-      <NavLink to="/">
+      <Link to="/">
       <Image src={isDarkMode ? whiteLogo : blackLogo} alt="logo" />
-      <Text>Apex Assembly</Text>
-      </NavLink>
+      <Text fontFamily={'monospace'} fontSize={'15'}>Apex Assembly</Text>
+      </Link>
       
       <NavLink to="/">Home</NavLink>
       { user && <NavLink to="/browse">Browse</NavLink> }
@@ -58,11 +59,11 @@ export default function Header() {
                 <Avatar name={userData?.username} src={userData?.avatarUrl} size="sm" mr={1} />
               </MenuButton>
               <MenuList>
-                <MenuItem as={NavLink} to={`#`} icon={<FiEdit />}>Edit User</MenuItem>
-                <MenuItem as={NavLink} to={`#`} icon={<FiUser />}>User Details</MenuItem>
+                <MenuItem as={NavLink} to={`/user/edit`} icon={<FiEdit />}>Edit User</MenuItem>
+                <MenuItem as={NavLink} to={`/user/${user?.uid}`} icon={<FiUser />}>User Details</MenuItem>
               </MenuList>
             </Menu>
-            <Button onClick={logout} colorScheme="orange" bg="orange.300" size={'sm'} w={20}>Logout</Button>
+            <Button onClick={logout} bg="orange.300" size={'sm'} w={20} textColor={'black'}>Logout</Button>
           </>
         )
         : (<>

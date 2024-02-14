@@ -1,4 +1,4 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, Container, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -46,7 +46,7 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
     };
 
     return (
-        <>
+        <Container maxW="100%">
             <h1>{onEdit ? 'Edit' : 'Create'} post</h1>
             <label htmlFor="title">Title: </label>
             <input
@@ -72,11 +72,11 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
             </select><br />
             <input type="text" placeholder="Image url" value={post.imgUrl} onChange={updatePost('imgUrl')} />
             <Button type="submit" colorScheme="green" bg="green.300" size={'md'} w={150}
-                isLoading={isLoading} loadingText="Creating" onClick={onSubmit}
+                isLoading={isLoading} loadingText={onEdit ? 'Saving' : 'Publishing'} onClick={onSubmit}
             >
                 {onEdit ? 'Save': 'Publish'}
             </Button>
-        </>
+        </Container>
     )
 };
 
