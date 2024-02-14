@@ -2,14 +2,17 @@ import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { logoutUser } from "../../services/auth.service";
-import { Avatar, Box, Button, Image, Menu, MenuButton, MenuItem, MenuList, Text, useToast } from "@chakra-ui/react";
-import logo from '../../assets/black-helmet.svg';
-import { FiEdit, FiUser } from "react-icons/fi";
+import { Avatar, Box, Button, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react";
+import blackLogo from '../../assets/black-helmet.svg';
+import whiteLogo from '../../assets/white-helmet.svg';
+import { FiEdit, FiMoon, FiSun, FiUser } from "react-icons/fi";
 
 export default function Header() {
   const { user, userData, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const toast = useToast();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const isDarkMode = useColorModeValue(false, true);
 
   const logout = async () => {
     await logoutUser();
@@ -25,20 +28,31 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <Box
+      borderTop="5px solid"
+      borderTopColor={"orange.400"}
+      shadow={"md"}
+      height="70px"
+      px="4"
+      align="center"
+      justifyContent="space-between"
+      display="flex"
+      alignItems={"center"}
+      bg={isDarkMode ? "gray.800" : "white"}
+    >
       <NavLink to="/">
-        <Image src={logo} alt="logo" display={"inline-block"} mr={1} />
-        <Text color={"black"} display={"inline-block"} position={'absolute'} top={'1'}>Apex Assembly</Text>
+      <Image src={isDarkMode ? whiteLogo : blackLogo} alt="logo" />
+      <Text>Apex Assembly</Text>
       </NavLink>
-      <Box>
-      <NavLink to="/">Home </NavLink>
-      { user && <NavLink to="/categories">Categories </NavLink> }
-      { user && <NavLink to="/create-post">Create post </NavLink> }
-      { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin </NavLink>}
+      
+      <NavLink to="/">Home</NavLink>
+      { user && <NavLink to="/browse">Browse</NavLink> }
+      { user && <NavLink to="/create-post">Create post</NavLink> }
+      { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
       { user 
         ? (
           <>
-            {`Welcome, ${userData?.username} `}
+            {`Welcome, ${userData?.username}`}
             <Menu>
               <MenuButton as={Box} display={'inline-block'} cursor={'pointer'}>
                 <Avatar name={userData?.username} src={userData?.avatarUrl} size="sm" mr={1} />
@@ -52,10 +66,16 @@ export default function Header() {
           </>
         )
         : (<>
-          <NavLink to="/login">Login </NavLink>
-          <NavLink to="/register">Register </NavLink>
+          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/register">Register</NavLink>
         </>) }
-      </Box>
-    </header>
+        <IconButton
+          icon={isDarkMode ? <FiSun /> : <FiMoon />}
+          size="md"
+          ml={5}
+          onClick={toggleColorMode}
+          color={colorMode}
+        />
+  </Box>
   );
 }
