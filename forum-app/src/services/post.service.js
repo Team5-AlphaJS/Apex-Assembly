@@ -21,6 +21,13 @@ export const getPost = async (postId) => {
     return get(ref(db, `posts/${postId}`))
 }
 
+export const getPostsByAuthor = async (author) => {
+    const snapshot = await get(ref(db, 'posts'));
+    return Object.entries(snapshot.val() || {})
+        .filter(([key, post]) => post.author === author)
+        .map(([key, post]) => ({ id: key, ...post }));
+};
+
 export const deletePost = async (postId) => {
   await remove(ref(db, `posts/${postId}`));
 };

@@ -19,6 +19,7 @@ import Browse from './views/Browse';
 import EditPost from './views/EditPost';
 import UserDetails from './components/Users/UserDetails';
 import EditUser from './components/Users/EditUser';
+import UserPosts from './components/Users/UserPosts';
 
 function App() {
   const [context, setContext] = useState({
@@ -81,6 +82,7 @@ function App() {
                     <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
                     <Route path="/edit-post/:id" element={<AuthGuard><EditPost /></AuthGuard>} />
                     <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} /></AuthGuard>} />
+                    <Route path="/user/:id/posts" element={<AuthGuard><UserPosts /></AuthGuard>} />
                     <Route path="/user/edit" element={<AuthGuard><EditUser userData={context.userData} updateUserData={updateUserData}/></AuthGuard>} />
                     <Route path="*" element={<NotFound />} />
                     {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
