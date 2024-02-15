@@ -52,7 +52,7 @@ export default function Home() {
         <Flex direction={'column'} mx={4}>
           {posts.map(post => {
             const [postId, postData] = post
-            return <SimplePost key={postId} postId={postId} postData={postData} />
+            return <SimplePost key={postId} postId={postId} postData={postData} posts={posts} setPosts={setPosts} />
           })}
         </Flex>
       </Container>

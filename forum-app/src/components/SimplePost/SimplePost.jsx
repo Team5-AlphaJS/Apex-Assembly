@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { Button, Image, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from '@chakra-ui/react';
 import { deletePost } from '../../services/post.service';
 
-const SimplePost = ({ postId, postData }) => {
+const SimplePost = ({ postId, postData, posts, setPosts}) => {
     const { userData } = useContext(AuthContext);
     const navigate = useNavigate();
     const toast = useToast();
@@ -21,6 +21,7 @@ const SimplePost = ({ postId, postData }) => {
           duration: 5000,
           isClosable: true,
         });
+        setPosts(posts.filter(post => post[0] !== postId));
         onClose();
         navigate('/');
       } catch (error) {
@@ -73,6 +74,8 @@ const SimplePost = ({ postId, postData }) => {
 SimplePost.propTypes = {
     postId: PropTypes.string.isRequired,
     postData: PropTypes.object.isRequired,
+    posts: PropTypes.array.isRequired,
+    setPosts: PropTypes.func.isRequired
 }
 
 export default SimplePost;
