@@ -31,6 +31,7 @@ export default function UserDetails({ currentUser }) {
     <Box p={8} >
       <VStack spacing={4} align="center" minW='full'>
         <Avatar size="xl" name={userData?.username} src={userData?.avatarUrl} />
+
         <Text fontSize="2xl" fontWeight="bold" textAlign="center" color={isDarkMode}>
           User: {userData?.username}
         </Text>
@@ -45,9 +46,6 @@ export default function UserDetails({ currentUser }) {
         </Text>
         {/* <Text fontSize="lg"  textAlign="center" color={isDarkMode}>
           Phone: {userData?.phone}
-        </Text>
-        <Text fontSize="lg"  textAlign="center" color={isDarkMode}>
-          Website: {userData?.website}
         </Text> OPTIONAL*/ }
         <HStack justifyContent="center" spacing={4}>
           <Button as={Link} to={{ pathname: `/user/${userData?.uid}/posts`, state: { userData } }} colorScheme="orange" variant="outline">

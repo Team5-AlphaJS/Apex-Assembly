@@ -44,6 +44,13 @@ function App() {
       })
   }, [user]);
 
+  const updateUserData = (newUserData) => {
+    setContext((prevState) => ({
+      ...prevState,
+      userData: newUserData,
+    }));
+  };
+
   const isAdmin = () => {
     return context.userData?.role === 'admin';
   }
@@ -74,7 +81,7 @@ function App() {
                     <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
                     <Route path="/edit-post/:id" element={<AuthGuard><EditPost /></AuthGuard>} />
                     <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} /></AuthGuard>} />
-                    <Route path="/user/edit" element={<AuthGuard><EditUser/></AuthGuard>} />
+                    <Route path="/user/edit" element={<AuthGuard><EditUser userData={context.userData} updateUserData={updateUserData}/></AuthGuard>} />
                     <Route path="*" element={<NotFound />} />
                     {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
                   </Routes>

@@ -1,4 +1,4 @@
-import { get, set, ref, query, equalTo, orderByChild } from 'firebase/database';
+import { get, set, ref, query, equalTo, orderByChild, update } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const getAllUsers = async () => {
@@ -23,6 +23,10 @@ export const createUserHandle = (username, uid, email, role) => {
       // we can use the url of an image to set it as an avatar
       avatarUrl: '',
   });
+}
+
+export const editUser = (data) => {
+  return update(ref(db, `users/${data.username}`), data);
 }
 
 export const getUserData = (uid) => {
