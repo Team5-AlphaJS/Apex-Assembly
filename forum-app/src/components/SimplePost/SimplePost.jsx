@@ -40,7 +40,7 @@ const SimplePost = ({ postId, postData, posts, setPosts}) => {
         <div id={postId}>
             <h3><b>{postData.title}</b></h3>
             {postData?.imgUrl && <Image src={postData?.imgUrl} alt='Post Photo'/>}
-            <p>{postData.description}</p>
+            <p>{postData.content}</p>
             <p>Category: {postData.category}</p>
             <p>Posted on: {new Date(postData.createdOn).toLocaleDateString()}</p>
             <p>Posted by: {postData.author}</p>

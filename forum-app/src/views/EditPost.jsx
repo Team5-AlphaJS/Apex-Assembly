@@ -10,7 +10,7 @@ const EditPost = () => {
     const [origPost, setOrigPost] = useState({});
     const [post, setPost] = useState({
         title: '',
-        description: '',
+        content: '',
         category: '',
         imgUrl: '',
     });
@@ -27,12 +27,12 @@ const EditPost = () => {
             await changePost(postId, 'title', post.title)
         }
 
-        if (post.description !== origPost.description) {
-            await changePost(postId, 'description', post.description);
+        if (post.content !== origPost.content) {
+            await changePost(postId, 'content', post.content);
         }
 
         if (post.category !== origPost.category) {
-            await changePost(postId, 'category', post.description);
+            await changePost(postId, 'category', post.category);
         }
 
         if (post.imgUrl !== origPost.imgUrl) {

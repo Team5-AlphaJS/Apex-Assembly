@@ -7,7 +7,7 @@ export default function CreatePost() {
   const { userData } = useContext(AuthContext);
   const [post, setPost] = useState({
     title: '',
-    description: '',
+    content: '',
     category: '',
     author: userData ? userData.username : '',
     imgUrl: '',

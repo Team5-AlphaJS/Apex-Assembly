@@ -85,6 +85,6 @@ export default function EditUser({ userData, updateUserData }) {
 }
 
 EditUser.propTypes = {
-  userData: PropTypes.object.isRequired,
-  updateUserData: PropTypes.func.isRequired,
+  userData: PropTypes.object,
+  updateUserData: PropTypes.func,
 };

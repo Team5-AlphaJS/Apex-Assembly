@@ -10,8 +10,8 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
     const [isLoading, setLoading] = useState(false);
     const TITLE_MIN_LENGTH = 16;
     const TITLE_MAX_LENGTH = 64;
-    const DESCRIPTION_MIN_LENGTH = 32;
-    const DESCRIPTION_MAX_LENGTH = 8192;
+    const CONTENT_MIN_LENGTH = 32;
+    const CONTENT_MAX_LENGTH = 8192;
 
     const updatePost = prop => e => {
         setPost({ ...post, [prop]: e.target.value });
@@ -24,8 +24,8 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
                 return console.log(`Title must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters long!`);
             }
 
-            if (post.description.length < DESCRIPTION_MIN_LENGTH || post.description.length > DESCRIPTION_MAX_LENGTH) {
-                return console.log(`Description must be between ${DESCRIPTION_MIN_LENGTH} and ${DESCRIPTION_MAX_LENGTH} characters long!`)
+            if (post.content.length < CONTENT_MIN_LENGTH || post.content.length > CONTENT_MAX_LENGTH) {
+                return console.log(`Description must be between ${CONTENT_MIN_LENGTH} and ${CONTENT_MAX_LENGTH} characters long!`)
             }
 
             await requestFunc(post);
@@ -57,11 +57,11 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
                 onChange={updatePost('title')}
 
             /><br />
-            <label htmlFor="description">Description: </label>
+            <label htmlFor="content">Content: </label>
             <textarea
-                id="description"
-                value={post.description}
-                onChange={updatePost('description')}
+                id="content"
+                value={post.content}
+                onChange={updatePost('content')}
             /><br />
             <select id="category" value={post.category} onChange={updatePost('category')}>
                 <option value="">Category</option>
