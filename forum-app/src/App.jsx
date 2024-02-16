@@ -22,6 +22,7 @@ import EditUser from './components/Users/EditUser';
 import Post from './views/Post';
 import UserPosts from './components/Users/UserPosts';
 import Search from './components/Search/Search';
+import Drivers from './components/Drivers/Drivers';
 
 function App() {
   const [context, setContext] = useState({
@@ -77,6 +78,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/home" element={<Home />} />
+                  <Route path='/drivers' element={<Drivers />} />
                   <Route path="/browse" element={<Browse />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/search" element={<Search />} />
