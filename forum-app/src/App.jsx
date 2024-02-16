@@ -21,6 +21,7 @@ import UserDetails from './components/Users/UserDetails';
 import EditUser from './components/Users/EditUser';
 import Post from './views/Post';
 import UserPosts from './components/Users/UserPosts';
+import Search from './components/Search/Search';
 
 function App() {
   const [context, setContext] = useState({
@@ -78,6 +79,7 @@ function App() {
                   <Route path="/home" element={<Home />} />
                   <Route path="/browse" element={<Browse />} />
                   <Route path="/about" element={<About />} />
+                  <Route path="/search" element={<Search />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />

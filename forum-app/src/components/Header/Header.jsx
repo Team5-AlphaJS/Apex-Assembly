@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { logoutUser } from "../../services/auth.service";
-import { Avatar, Box, Button, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Avatar, Box, Button, IconButton, Image, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react";
 import blackLogo from '../../assets/black-helmet.svg';
 import whiteLogo from '../../assets/white-helmet.svg';
 import { FiEdit, FiMoon, FiSun, FiUser } from "react-icons/fi";
@@ -11,6 +11,7 @@ export default function Header() {
   const { user, userData, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const toast = useToast();
+  const [search, setSearch] = useState('');
   const { colorMode, toggleColorMode } = useColorMode();
   const isDarkMode = useColorModeValue(false, true);
 
@@ -26,6 +27,14 @@ export default function Header() {
   });
     navigate('/');
   };
+
+  const onSubmit = () => {
+    if (search !== '') {
+        setSearch(search);
+        navigate(`/search`, { state: search });
+        setSearch('');
+    }
+};
 
   return (
     <Box
@@ -50,6 +59,24 @@ export default function Header() {
       { user && <NavLink to="/browse">Browse</NavLink> }
       { user && <NavLink to="/create-post">Create post</NavLink> }
       { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
+      <InputGroup size="sm" maxW="300px">
+        <Input
+          type="text"
+          placeholder="Search for posts..."
+          borderColor="orange.200"
+          maxW={"400px"}
+          bg={isDarkMode ? "gray.700" : "gray.300"}
+          _placeholder={{ color: isDarkMode ? "gray.400" : "black"}}
+          _focus={{ borderColor: "orange.100" }}
+          width="100%"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") onSubmit();
+          }}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <InputRightElement pointerEvents="none" color="gray.400" />
+      </InputGroup>
       { user 
         ? (
           <>
