@@ -19,6 +19,7 @@ import Browse from './views/Browse';
 import EditPost from './views/EditPost';
 import UserDetails from './components/Users/UserDetails';
 import EditUser from './components/Users/EditUser';
+import Post from './views/Post';
 
 function App() {
   const [context, setContext] = useState({
@@ -59,38 +60,39 @@ function App() {
     <>
       <BrowserRouter>
         <AuthContext.Provider value={{ ...context, setUser: setContext }}>
-            <Grid
-              templateAreas={`"header" "main" "footer"`}
-              templateRows="70px 1fr 60px"
-              minHeight="100vh"
-              minWidth='100vw'
-              gap={1}
-            >
-              <GridItem area={'header'} position={'sticky'} top={0} zIndex={10}>
-                <Header />
-              </GridItem>
-              <GridItem area={'main'}>
-                <Box mt="25px">
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/browse" element={<Browse />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
-                    <Route path="/edit-post/:id" element={<AuthGuard><EditPost /></AuthGuard>} />
-                    <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} /></AuthGuard>} />
-                    <Route path="/user/edit" element={<AuthGuard><EditUser userData={context.userData} updateUserData={updateUserData}/></AuthGuard>} />
-                    <Route path="*" element={<NotFound />} />
-                    {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
-                  </Routes>
-                </Box>
-              </GridItem>
-              <GridItem area={'footer'} justifyContent={'center'} textAlign={'center'} position={'sticky'} bottom={0}>
-                <Footer />
-              </GridItem>
-            </Grid>
+          <Grid
+            templateAreas={`"header" "main" "footer"`}
+            templateRows="70px 1fr 60px"
+            minHeight="100vh"
+            minWidth='100vw'
+            gap={1}
+          >
+            <GridItem area={'header'} position={'sticky'} top={0} zIndex={10}>
+              <Header />
+            </GridItem>
+            <GridItem area={'main'}>
+              <Box mt="25px">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/browse" element={<Browse />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
+                  <Route path="/edit-post/:id" element={<AuthGuard><EditPost /></AuthGuard>} />
+                  <Route path="/post/:id" element={<AuthGuard> <Post /> </AuthGuard>} />
+                  <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} /></AuthGuard>} />
+                  <Route path="/user/edit" element={<AuthGuard><EditUser userData={context.userData} updateUserData={updateUserData} /></AuthGuard>} />
+                  <Route path="*" element={<NotFound />} />
+                  {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}
+                </Routes>
+              </Box>
+            </GridItem>
+            <GridItem area={'footer'} justifyContent={'center'} textAlign={'center'} position={'sticky'} bottom={0}>
+              <Footer />
+            </GridItem>
+          </Grid>
         </AuthContext.Provider>
       </BrowserRouter>
     </>

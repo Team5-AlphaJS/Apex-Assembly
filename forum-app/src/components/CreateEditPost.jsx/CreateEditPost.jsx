@@ -41,7 +41,7 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
             console.log(e.message);
         } finally {
             setLoading(false);
-            navigate('/home');
+            navigate('/');
         }
     };
 
