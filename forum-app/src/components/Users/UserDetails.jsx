@@ -12,9 +12,10 @@ export default function UserDetails({ currentUser }) {
   const isDarkMode = colorMode === 'dark';
 
   useEffect(() => {
-    if (id) {
-      getUserData(id)
-        .then((snapshot) => {
+    const fetchUserData = async () => {
+      if (id) {
+        try {
+          const snapshot = await getUserData(id);
           if (snapshot.exists()) {
             const userData = snapshot.val();
             const userKey = Object.keys(userData)[0];
@@ -22,9 +23,12 @@ export default function UserDetails({ currentUser }) {
           } else {
             console.log(`User data not found for UID: ${id}`);
           }
-        })
-        .catch((e) => console.error(e.message));
-    }
+        } catch (e) {
+          console.error(e.message);
+        }
+      }
+    };
+    fetchUserData();
   }, [id]);
 
   return (
