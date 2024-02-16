@@ -32,3 +32,20 @@ export const editUser = (data) => {
 export const getUserData = (uid) => {
   return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
 };
+
+export const getAllUsersData = async () => {
+  const snapshot = await get(ref(db, 'users'));
+  if (snapshot.exists()) {
+      const usersData = snapshot.val();
+      return Object.keys(usersData).map(userId => ({ id: userId, ...usersData[userId] }));
+  }
+  return [];
+};
+
+export const handleToggleRole = async (userId, newRole) => {
+    try {
+        await update(ref(db, `users/${userId}`), { role: newRole });
+    } catch (error) {
+        console.error('Error updating user role:', error);
+    }
+};

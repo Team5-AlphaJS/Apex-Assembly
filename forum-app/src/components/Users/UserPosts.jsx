@@ -76,7 +76,7 @@ export default function UserPosts() {
         {userPosts.map((post) => (
           <Flex
             key={post?.createdOn}
-            borderWidth="1px"
+            border={'1px solid black'}
             borderRadius="md"
             p={4}
             w={'90%'}
