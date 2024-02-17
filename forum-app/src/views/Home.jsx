@@ -3,8 +3,9 @@ import SimplePost from "../components/SimplePost/SimplePost";
 import { getAllPosts } from "../services/post.service";
 import { getAllUsers } from "../services/users.service";
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
-export default function Home() {
+export default function Home({ updateUserData }) {
   const [posts, setPosts] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPosts, setTotalPosts] = useState(0);
@@ -52,10 +53,14 @@ export default function Home() {
         <Flex direction={'column'} mx={4}>
           {posts.map(post => {
             const [postId, postData] = post
-            return <SimplePost key={postId} postId={postId} postData={postData} posts={posts} setPosts={setPosts} />
+            return <SimplePost key={post} updateUserData={updateUserData} postId={postId} postData={postData} posts={posts} setPosts={setPosts} />
           })}
         </Flex>
       </Container>
     </Box>
   );
 }
+
+Home.propTypes = {
+  updateUserData: PropTypes.func,
+};

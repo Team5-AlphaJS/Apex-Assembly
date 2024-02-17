@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { Button, Image, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from '@chakra-ui/react';
-import { deletePost } from '../../services/post.service';
+import { deletePost, updatePostLikedStatus } from '../../services/post.service';
+import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
+import { updateUserLikedPosts } from '../../services/users.service';
 
-const SimplePost = ({ postId, postData, posts, setPosts }) => {
+const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [like, setLike] = useState(true);
 
   const onSubmitDelete = async () => {
     try {
@@ -36,6 +39,32 @@ const SimplePost = ({ postId, postData, posts, setPosts }) => {
     }
   };
 
+  const likeHandle = async () => {
+    setLike(!like);
+
+    if (userData && userData.uid) {
+        try {
+            const currentUserId = userData.uid;
+            await updateUserLikedPosts(currentUserId, postId, like).then((data) => {
+                updateUserData(data);
+            });
+            await updatePostLikedStatus(currentUserId, postId, like).then((updatedPostData) => {
+                setPosts(posts.map((post) => post.id === updatedPostData.id ? [...updatedPostData] : post));
+            });
+        } catch (e) {
+            console.error(e.message);
+        }
+    }
+  }
+
+  useEffect(() => {
+    if (userData?.likedPosts && userData.likedPosts[postId] !== undefined) {
+        setLike(!userData.likedPosts[postId]);
+    } else {
+        setLike(true);
+    }
+  }, [userData]);
+
   return (
     <div id={postId}>
       <h3><b>{postData.title}</b></h3>
@@ -44,7 +73,12 @@ const SimplePost = ({ postId, postData, posts, setPosts }) => {
       <p>Category: {postData.category}</p>
       <p>Posted on: {new Date(postData.createdOn).toLocaleDateString()}</p>
       <p>Posted by: {postData.author}</p>
-      {userData && <button>Like</button>}
+      {userData && <Button flex='1' variant='ghost' onClick={likeHandle} colorScheme={like ? 'blue' : 'orange'}>
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          {like ? <FaThumbsUp /> : <FaThumbsDown />}
+        <span style={{ marginLeft: '0.5rem' }}>{like ? 'Like' : 'Liked'}</span>
+        </span>
+      </Button>}
       {/* {userData && <button>Comment</button>} Move to Single view*/}
       <button onClick={() => navigate(`post/${postId}`)}>More</button>
       {userData && userData.username === postData.author && <Button ml={'5px'} size={'sm'} variant='ghost' color='black' bg='orange.300' onClick={() => navigate(`/edit-post/${postId}`)}>Edit</Button>}
@@ -72,10 +106,11 @@ const SimplePost = ({ postId, postData, posts, setPosts }) => {
 }
 
 SimplePost.propTypes = {
-  postId: PropTypes.string.isRequired,
-  postData: PropTypes.object.isRequired,
-  posts: PropTypes.array.isRequired,
-  setPosts: PropTypes.func.isRequired
+  updateUserData: PropTypes.func,
+  postId: PropTypes.string,
+  postData: PropTypes.object,
+  posts: PropTypes.array,
+  setPosts: PropTypes.func
 }
 
 export default SimplePost;

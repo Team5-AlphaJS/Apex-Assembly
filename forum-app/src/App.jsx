@@ -23,6 +23,7 @@ import Post from './views/Post';
 import UserPosts from './components/Users/UserPosts';
 import Search from './components/Search/Search';
 import Drivers from './components/Drivers/Drivers';
+import LikedPosts from './components/Users/LikedPosts';
 
 function App() {
   const [context, setContext] = useState({
@@ -76,8 +77,8 @@ function App() {
             <GridItem area={'main'}>
               <Box mt="25px">
                 <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/home" element={<Home />} />
+                  <Route path="/" element={<Home updateUserData={updateUserData} />} />
+                  <Route path="/home" element={<Home updateUserData={updateUserData} />} />
                   <Route path='/drivers' element={<Drivers />} />
                   <Route path="/browse" element={<Browse />} />
                   <Route path="/about" element={<About />} />
@@ -89,6 +90,7 @@ function App() {
                   <Route path="/post/:id" element={<AuthGuard> <Post /> </AuthGuard>} />
                   <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} /></AuthGuard>} />
                   <Route path="/user/:id/posts" element={<AuthGuard><UserPosts /></AuthGuard>} />
+                  <Route path="/user/:id/liked-posts" element={<AuthGuard><LikedPosts /></AuthGuard>} />
                   <Route path="/user/edit" element={<AuthGuard><EditUser userData={context.userData} updateUserData={updateUserData} /></AuthGuard>} />
                   <Route path="*" element={<NotFound />} />
                   {isAdmin() && <Route path="/admin" element={<AdminDashboard />} />}

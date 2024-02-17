@@ -53,7 +53,7 @@ export default function UserPosts() {
         textAlign="center"
         // bg={isDarkMode ? 'gray.700' : 'white'}
       >
-        User&apos;s Posts
+        Your Posts
       </Heading>
       <VStack align="center">
         <Flex
@@ -66,7 +66,7 @@ export default function UserPosts() {
           w={'90%'}
         >
           <Heading flex="1" size={'md'}>Title</Heading>
-          {/* <Heading flex="1" size={'md'}>Likes</Heading> */}
+          <Heading flex="1" size={'md'}>Likes</Heading>
           <Heading flex="1" size={'md'}>Category</Heading>
           <Heading flex="1" size={'md'}>Details</Heading>
           <Heading flex="1" size={'md'}>Created On</Heading>
@@ -95,7 +95,7 @@ export default function UserPosts() {
             >
               {post?.title}
             </Box>
-            {/* <Box flex="1">{Object.keys(post?.likes || {}).length}</Box> */}
+            <Box flex="1">{Object.keys(post?.likes || {}).length}</Box>
             <Box
               flex="1"
               color={'white'}

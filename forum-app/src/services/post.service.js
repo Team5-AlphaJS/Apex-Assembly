@@ -43,3 +43,45 @@ export const changePost = async (postId, key, value) => {
     const path = `posts/${postId}/${key}`;
     return update(ref(db), { [path]: value })
 }
+
+export const getLikedPosts = async (username) => {
+    const snapshot = await get(ref(db, `users/${username}`));
+    if (!snapshot.val()) {
+        throw new Error(`User with username: ${username} does not exist!`);
+    }
+
+    const user = snapshot.val();
+    if (!user.likedPosts) return [];
+
+    const likedPosts = await Promise.all(Object.keys(user.likedPosts).map(async (key) => {
+        const postSnapshot = await get(ref(db, `posts/${key}`));
+        const post = postSnapshot?.val();
+        if (post === null) {
+            return null;
+        }
+        return {
+            ...post,
+            createdOn: new Date(post?.createdOn),
+            id: key,
+            likes: post?.likes ? Object.keys(post?.likes) : [],
+        };
+    }));
+
+    return likedPosts;
+};
+
+export const updatePostLikedStatus = async (userId, postId, liked) => {
+    const postSnapshot = await get(ref(db, `posts/${postId}`));
+    if (postSnapshot.exists()) {
+        const postData = postSnapshot.val();
+        const updatedLikes = { ...postData.likes };
+        if (liked) {
+            updatedLikes[userId] = true;
+        } else {
+            delete updatedLikes[userId];
+        }
+        postData['likes'] = updatedLikes;
+        await set(ref(db, `posts/${postId}/likes`), updatedLikes);
+        return postData;
+    }
+};
