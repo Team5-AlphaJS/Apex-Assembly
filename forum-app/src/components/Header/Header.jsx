@@ -58,7 +58,7 @@ export default function Header() {
       <NavLink to="/">Home</NavLink>
       <NavLink to="/drivers">Drivers</NavLink>
       { user && <NavLink to="/browse">Browse</NavLink> }
-      { user && <NavLink to="/create-post">Create post</NavLink> }
+      { user && userData?.role !== 'blocked' && <NavLink to="/create-post">Create post</NavLink> }
       { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
       <InputGroup size="sm" maxW="300px">
         <Input

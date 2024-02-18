@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Heading, Text, VStack, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Text,
+  VStack,
+  useColorMode,
+} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getUserData } from '../../services/users.service';
@@ -65,11 +73,21 @@ export default function UserPosts() {
           mb={4}
           w={'90%'}
         >
-          <Heading flex="1" size={'md'}>Title</Heading>
-          <Heading flex="1" size={'md'}>Likes</Heading>
-          <Heading flex="1" size={'md'}>Category</Heading>
-          <Heading flex="1" size={'md'}>Details</Heading>
-          <Heading flex="1" size={'md'}>Created On</Heading>
+          <Heading flex="1" size={'md'}>
+            Title
+          </Heading>
+          <Heading flex="1" size={'md'}>
+            Likes
+          </Heading>
+          <Heading flex="1" size={'md'}>
+            Category
+          </Heading>
+          <Heading flex="1" size={'md'}>
+            Details
+          </Heading>
+          <Heading flex="1" size={'md'}>
+            Created On
+          </Heading>
         </Flex>
       </VStack>
       <VStack spacing={5} align="center">
@@ -95,7 +113,14 @@ export default function UserPosts() {
             >
               {post?.title}
             </Box>
-            <Box flex="1">{Object.keys(post?.likes || {}).length}</Box>
+            <Box
+              flex="1"
+              color={'white'}
+              fontWeight={'bold'}
+              style={{ WebkitTextStroke: '0.7px black' }}
+            >
+              {Object.keys(post?.likes || {}).length}
+            </Box>
             <Box
               flex="1"
               color={'white'}
@@ -112,6 +137,8 @@ export default function UserPosts() {
                 flex="1"
                 color={isDarkMode ? 'white' : 'black'}
                 size={'sm'}
+                bg={isDarkMode ? 'gray.700' : 'white'}
+                border={'1px solid black'}
               >
                 Details
               </Button>
@@ -128,7 +155,9 @@ export default function UserPosts() {
         ))}
       </VStack>
       {userPosts.length === 0 && (
-        <Text fontSize={'lg'} textAlign={'center'}>No posts found</Text>
+        <Text fontSize={'lg'} textAlign={'center'}>
+          No posts found
+        </Text>
       )}
     </Box>
   );

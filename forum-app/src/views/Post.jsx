@@ -24,7 +24,7 @@ const Post = () => {
             {userData && (userData.username === post.author) && <button>Edit</button>}
             {userData && (userData.username === post.author || userData.role === 'admin') && <button>Delete</button>}
 
-            <button onClick={() => setToComment(true)}>Comment</button>
+            {userData && userData?.role !== 'blocked' && <button onClick={() => setToComment(true)}>Comment</button>}
             {toComment && (
                 <div>
                     <textarea></textarea>

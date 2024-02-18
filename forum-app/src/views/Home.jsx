@@ -50,7 +50,7 @@ export default function Home({ updateUserData }) {
             <Text fontSize="xl" textAlign={'center'} color={'black'}>{totalPosts}</Text>
           </Box>
         </Flex>
-        <Flex direction={'column'} mx={4}>
+        <Flex direction={'column'} mx={4} align={"center"}>
           {posts.map(post => {
             const [postId, postData] = post
             return <SimplePost key={post} updateUserData={updateUserData} postId={postId} postData={postData} posts={posts} setPosts={setPosts} />

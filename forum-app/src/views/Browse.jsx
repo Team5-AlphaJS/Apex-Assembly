@@ -59,7 +59,7 @@ export default function Browse() {
             <option value="cars">Cars</option>
           </Select>
         </Flex>
-        <Flex direction={'column'} mx={4}>
+        <Flex direction={'column'} mx={4} align={"center"}>
           {posts.map(post => (
             <SimplePost key={post.id} postId={post.id} postData={post} />
           ))}
