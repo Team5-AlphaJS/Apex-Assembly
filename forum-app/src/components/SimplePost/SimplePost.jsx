@@ -45,7 +45,6 @@ const SimplePost = ({ postId, postData, posts, setPosts }) => {
       <p>Posted on: {new Date(postData.createdOn).toLocaleDateString()}</p>
       <p>Posted by: {postData.author}</p>
       {userData && <button>Like</button>}
-      {/* {userData && <button>Comment</button>} Move to Single view*/}
       <button onClick={() => navigate(`post/${postId}`)}>More</button>
       {userData && userData.username === postData.author && <Button ml={'5px'} size={'sm'} variant='ghost' color='black' bg='orange.300' onClick={() => navigate(`/edit-post/${postId}`)}>Edit</Button>}
       {userData && (userData.username === postData.author || userData.role === 'admin') &&
@@ -74,8 +73,8 @@ const SimplePost = ({ postId, postData, posts, setPosts }) => {
 SimplePost.propTypes = {
   postId: PropTypes.string.isRequired,
   postData: PropTypes.object.isRequired,
-  posts: PropTypes.array.isRequired,
-  setPosts: PropTypes.func.isRequired
+  posts: PropTypes.array,
+  setPosts: PropTypes.func
 }
 
 export default SimplePost;
