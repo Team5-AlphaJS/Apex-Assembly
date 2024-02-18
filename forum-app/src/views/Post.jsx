@@ -55,19 +55,26 @@ const Post = () => {
         <div>
             <SimplePost postId={postId} postData={post} />
 
-            <div>
-                <input
-                    type="text"
-                    placeholder="Write your comment..."
-                    value={commentData}
-                    onChange={(e) => setCommentData(e.target.value)}
-                    onFocus={() => setToComment(true)} />
-                {toComment && <button onClick={() => {
-                    onComment();
-                    setToComment(false);
-                    setCommentData('');
-                }}>Comment</button>}
-            </div>
+
+            {userData && userData?.role !== 'blocked' ? (
+                <div>
+                    <input
+                        type="text"
+                        placeholder="Write your comment..."
+                        value={commentData}
+                        onChange={(e) => setCommentData(e.target.value)}
+                        onFocus={() => setToComment(true)} />
+                    {toComment && <button onClick={() => {
+                        onComment();
+                        setToComment(false);
+                        setCommentData('');
+                    }}>Comment</button>}
+                </div>
+            ) : (
+                <p>You are not allowed to comment!</p>
+            )}
+
+
             {'comments' in post && Object.keys(post.comments).length
                 ? (sortComments().map(comment => <Comment key={comment[0]} commentId={comment[0]} commentData={comment[1]} postId={postId} post={post} setPost={setPost} />))
                 : <p>No comments yet</p>}

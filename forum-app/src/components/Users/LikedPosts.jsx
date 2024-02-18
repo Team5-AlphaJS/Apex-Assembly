@@ -10,12 +10,13 @@ import {
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getUserData } from '../../services/users.service';
-import { getPostsByAuthor } from '../../services/post.service';
+import { getLikedPosts } from '../../services/post.service';
 
-export default function UserPosts() {
+export default function LikedPosts() {
   const id = useParams().id;
-  const [userPosts, setUserPosts] = useState([]);
   const [userData, setUserData] = useState(null);
+  const [likedPosts, setLikedPosts] = useState([]);
+
   const { colorMode } = useColorMode();
   const isDarkMode = colorMode === 'dark';
 
@@ -40,17 +41,17 @@ export default function UserPosts() {
   }, [id]);
 
   useEffect(() => {
-    const fetchUserPosts = async () => {
+    const fetchLikedPosts = async () => {
       if (userData && userData?.username) {
         try {
-          const posts = await getPostsByAuthor(userData?.username);
-          setUserPosts(posts);
-        } catch (e) {
-          console.error('Error fetching user posts:', e.message);
+          const likedPosts = await getLikedPosts(userData?.username);
+          setLikedPosts(likedPosts);
+        } catch (error) {
+          console.error('Error fetching liked posts:', error);
         }
       }
     };
-    fetchUserPosts();
+    fetchLikedPosts();
   }, [userData]);
 
   return (
@@ -61,7 +62,7 @@ export default function UserPosts() {
         textAlign="center"
         // bg={isDarkMode ? 'gray.700' : 'white'}
       >
-        Your Posts
+        Your Liked Posts
       </Heading>
       <VStack align="center">
         <Flex
@@ -91,7 +92,7 @@ export default function UserPosts() {
         </Flex>
       </VStack>
       <VStack spacing={5} align="center">
-        {userPosts.map((post) => (
+        {likedPosts.map((post) => (
           <Flex
             key={post?.createdOn}
             border={'1px solid black'}
@@ -154,9 +155,9 @@ export default function UserPosts() {
           </Flex>
         ))}
       </VStack>
-      {userPosts.length === 0 && (
+      {likedPosts.length === 0 && (
         <Text fontSize={'lg'} textAlign={'center'}>
-          No posts found
+          No liked posts
         </Text>
       )}
     </Box>

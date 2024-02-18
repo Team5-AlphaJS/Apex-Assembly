@@ -49,3 +49,24 @@ export const handleToggleRole = async (userId, newRole) => {
         console.error('Error updating user role:', error);
     }
 };
+
+export const updateUserLikedPosts = async (userId, postId, liked) => {
+  try {
+    const userDataSnapshot = await getUserData(userId);
+    if (userDataSnapshot.exists()) {
+      const userData = userDataSnapshot.val();
+      const userKey = Object.keys(userData)[0];
+      const userDataForPost = userData[userKey];
+      if (liked) {
+        userDataForPost.likedPosts = { ...userDataForPost.likedPosts, [postId]: liked };
+      } else {
+        delete userDataForPost.likedPosts[postId];
+      }
+      await set(ref(db, `users/${userDataForPost.username}`), userDataForPost);
+      return userDataForPost;
+    }
+  } catch (error) {
+    console.error('Error updating user liked posts:', error);
+  }
+  return null;
+};

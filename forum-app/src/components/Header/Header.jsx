@@ -56,8 +56,9 @@ export default function Header() {
       </Link>
       
       <NavLink to="/">Home</NavLink>
+      <NavLink to="/drivers">Drivers</NavLink>
       { user && <NavLink to="/browse">Browse</NavLink> }
-      { user && <NavLink to="/create-post">Create post</NavLink> }
+      { user && userData?.role !== 'blocked' && <NavLink to="/create-post">Create post</NavLink> }
       { user !== null && userData?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
       <InputGroup size="sm" maxW="300px">
         <Input
@@ -86,8 +87,8 @@ export default function Header() {
                 <Avatar name={userData?.username} src={userData?.avatarUrl} size="md" mr={1} />
               </MenuButton>
               <MenuList>
-                <MenuItem as={NavLink} to={`/user/edit`} icon={<FiEdit />}>Edit User</MenuItem>
                 <MenuItem as={NavLink} to={`/user/${user?.uid}`} icon={<FiUser />}>User Details</MenuItem>
+                <MenuItem as={NavLink} to={`/user/edit`} icon={<FiEdit />}>Edit User</MenuItem>
               </MenuList>
             </Menu>
             <Button onClick={logout} bg="orange.300" size={'sm'} w={20} textColor={'black'}>Logout</Button>

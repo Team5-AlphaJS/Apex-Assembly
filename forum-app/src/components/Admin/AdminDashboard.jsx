@@ -74,7 +74,7 @@ export default function AdminDashboard() {
                       <Link to={`/user/${user?.uid}`}>
                         <Avatar name={user?.username} src={user?.avatarUrl} />
                       </Link>
-                      <Text fontWeight="bold" color={'white'}>{user?.username}</Text>
+                      <Text fontWeight="bold" color={'white'} style={{ WebkitTextStroke: '0.7px black' }}>{user?.username}</Text>
                       <Button
                         onClick={() => handleToggle(user?.id, user?.role)}
                         color={'white'}
