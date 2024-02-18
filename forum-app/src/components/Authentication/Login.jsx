@@ -1,8 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
-import { loginUser } from "../../services/auth.service";
-import { Button, useToast } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { loginUser } from '../../services/auth.service';
+import {
+  Box,
+  Button,
+  Center,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Link,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Login() {
   const { user, setUser } = useContext(AuthContext);
@@ -15,7 +27,7 @@ export default function Login() {
   const location = useLocation();
   const toast = useToast();
 
-  const updateForm = prop => e => {
+  const updateForm = (prop) => (e) => {
     setForm({ ...form, [prop]: e.target.value });
   };
 
@@ -31,19 +43,19 @@ export default function Login() {
       const credentials = await loginUser(form.email, form.password);
       setUser({ user: credentials.user, userData: null });
       toast({
-        title: "You are logged in",
-        status: "success",
+        title: 'You are logged in',
+        status: 'success',
         isClosable: true,
-        position: "top",
+        position: 'top',
         duration: 5000,
-    });
+      });
     } catch (error) {
       toast({
-        title: "Logging in failed",
+        title: 'Logging in failed',
         description: error.message,
-        status: "error",
+        status: 'error',
         isClosable: true,
-        position: "top",
+        position: 'top',
         duration: 5000,
       });
     } finally {
@@ -52,15 +64,56 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <label htmlFor="email">Email: </label><input value={form.email} onChange={updateForm('email')} type="text" id="email" name="email" /><br/>
-      <label htmlFor="password">Password: </label><input value={form.password} onChange={updateForm('password')} type="password" id="password" name="password" /><br/>
-      <Button type="submit" colorScheme="green" bg="green.300" size={'md'} w={150}
-      isLoading={isLoading} loadingText="Logging In" onClick={login}
-      >
-        Log In
-      </Button>
-    </div>
-  )
+    <Center>
+      <Box border={'1px solid'} borderRadius={'lg'} p={4} mt={'70px'}>
+        <Heading mb={4}>Log In</Heading>
+        <FormControl>
+          <FormLabel>Email: </FormLabel>
+          <Input
+            value={form.email}
+            onChange={updateForm('email')}
+            type="text"
+            placeholder="enter@youremail.com"
+            mb={4}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password: </FormLabel>
+          <Input
+            value={form.password}
+            onChange={updateForm('password')}
+            type="password"
+            placeholder="password here"
+          />
+        </FormControl>
+        <Button
+          mt={4}
+          type="submit"
+          colorScheme="orange"
+          bg="orange.300"
+          color={'black'}
+          variant={'ghost'}
+          size={'md'}
+          w={'full'}
+          isLoading={isLoading}
+          loadingText="Logging In"
+          onClick={login}
+        >
+          Log In
+        </Button>
+        <Text mt={4}>
+          You don&apos;t have an account?{' '}
+          <Link
+            as={RouterLink}
+            to={'/register'}
+            color={'orange.300'}
+            fontWeight={'bold'}
+          >
+            Register
+          </Link>{' '}
+          instead!
+        </Text>
+      </Box>
+    </Center>
+  );
 }

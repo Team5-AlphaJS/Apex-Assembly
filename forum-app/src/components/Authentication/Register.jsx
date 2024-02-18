@@ -3,7 +3,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/auth.service";
 import { createUserHandle, getUserByUsername } from "../../services/users.service";
-import { Button, useToast } from '@chakra-ui/react'
+import { Box, Button, Center, FormControl, FormLabel, Heading, Input, Link, Text, useToast } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Register() {
   const { setUser } = useContext(AuthContext);
@@ -64,16 +65,67 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <label htmlFor="email">Email: </label><input value={form.email} onChange={updateForm('email')} type="text" name="email" id="email" /><br/>
-      <label htmlFor="password">Password: </label><input value={form.password} onChange={updateForm('password')} type="password" name="password" id="password" /><br/>
-      <label htmlFor="username">Username: </label><input value={form.username} onChange={updateForm('username')} type="text" name="username" id="username" /><br/>
-      <Button type="submit" colorScheme="green" bg="green.300" size={'md'} w={150}
-      isLoading={isLoading} loadingText="Register" onClick={register}
-      >
-        Register
-      </Button>
-    </div>
-  )
+    <Center>
+      <Box border={'1px solid'} borderRadius={'lg'} p={4} mt={'40px'}>
+        <Heading mb={4}>Register</Heading>
+        <FormControl>
+          <FormLabel>Email: </FormLabel>
+          <Input
+            value={form.email}
+            onChange={updateForm('email')}
+            type="text"
+            placeholder="enter@youremail.com"
+            mb={4}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password: </FormLabel>
+          <Input
+            value={form.password}
+            onChange={updateForm('password')}
+            type="password"
+            placeholder="password here"
+            mb={4}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Username: </FormLabel>
+          <Input
+            value={form.username}
+            onChange={updateForm('username')}
+            type="text"
+            placeholder="username here"
+            mb={4}
+          />
+        </FormControl>
+        <Button
+          mt={4}
+          type="submit"
+          colorScheme="orange"
+          bg="orange.300"
+          color={'black'}
+          variant={'ghost'}
+          size={'md'}
+          w={'full'}
+          isLoading={isLoading}
+          loadingText="Logging In"
+          onClick={register}
+        >
+          Register
+        </Button>
+        <Text mt={4}>
+          Already have an account?{' '}
+          <Link
+            as={RouterLink}
+            to={'/login'}
+            color={'orange.300'}
+            fontWeight={'bold'}
+          >
+            Log In
+          </Link>{' '}
+          instead!
+        </Text>
+      </Box>
+    </Center>
+  );
 }
