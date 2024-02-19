@@ -93,6 +93,7 @@ export default function Login() {
               onChange={updateForm('email')}
               type="text"
               placeholder="enter@youremail.com"
+              focusBorderColor='orange.300'
               mb={4}
             />
             <FormErrorMessage pb={2}>
@@ -108,6 +109,7 @@ export default function Login() {
               onChange={updateForm('password')}
               type="password"
               placeholder="password here"
+              focusBorderColor='orange.300'
             />
             <FormErrorMessage>
               {errors.password && errors.password.message}

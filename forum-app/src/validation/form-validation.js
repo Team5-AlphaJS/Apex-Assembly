@@ -33,7 +33,7 @@ export const usernameValidation = {
   },
 };
 
-export const nameValidation = {
+export const firstNameValidation = {
   required: {
     value: true,
     message: "Please enter name",
@@ -45,6 +45,21 @@ export const nameValidation = {
   maxLength: {
     value: 32,
     message: "First name must be at most 32 characters long",
+  },
+};
+
+export const lastNameValidation = {
+  required: {
+    value: true,
+    message: "Please enter name",
+  },
+  minLength: {
+    value: 4,
+    message: "Last name must be at least 4 characters long",
+  },
+  maxLength: {
+    value: 32,
+    message: "Last name must be at most 32 characters long",
   },
 };
 
@@ -78,7 +93,7 @@ export const postContentValidation = {
   },
 };
 
-export const validateUrl = (value) => {
+export const urlValidation = (value) => {
   if (!value) return true;
   if (validator.isURL(value)) {
     return true;
