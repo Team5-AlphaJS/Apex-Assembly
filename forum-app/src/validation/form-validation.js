@@ -6,7 +6,7 @@ export const emailValidation = {
     message: "Please enter an email address",
   },
   pattern: {
-    value: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/,
+    value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9]+\.[A-Za-z]+$/,
     message: "Email address is not valid",
   },
 };
