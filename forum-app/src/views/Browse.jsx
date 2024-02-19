@@ -16,7 +16,7 @@ export default function Browse() {
         const postsData = postSnapshot.val() || {};
 
         let postsArray = Object.entries(postsData).map(([postId, postData]) => ({ id: postId, ...postData }));
-
+        console.log(postsArray)
         if (filterByCategory) {
           postsArray = postsArray.filter(post => post.category === filterByCategory);
         }
@@ -24,9 +24,17 @@ export default function Browse() {
         if (sortBy === 'title') {
           postsArray.sort((a, b) => a.title.localeCompare(b.title));
         }
-        
+
         if (sortBy === 'date') {
           postsArray.sort((a, b) => b.createdOn - a.createdOn);
+        }
+
+        if (sortBy === 'likes') {
+          postsArray.sort((a, b) => {
+            const likesCountA = Object.keys(a.likes || {}).length;
+            const likesCountB = Object.keys(b.likes || {}).length;
+            return likesCountA - likesCountB;
+          });
         }
 
         setPosts(postsArray);
@@ -46,6 +54,7 @@ export default function Browse() {
           >
             <option value="title">Title</option>
             <option value="date">Date</option>
+            <option value="likes">Most Likes</option>
           </Select>
           <Select
             placeholder="Filter by category"
