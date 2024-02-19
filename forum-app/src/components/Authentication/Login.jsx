@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/auth.service';
@@ -7,6 +7,7 @@ import {
   Button,
   Center,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   Input,
@@ -15,6 +16,11 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import {
+  emailValidation,
+  passwordValidation,
+} from '../../validation/form-validation';
 
 export default function Login() {
   const { user, setUser } = useContext(AuthContext);
@@ -26,6 +32,14 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const toast = useToast();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const updateForm = (prop) => (e) => {
     setForm({ ...form, [prop]: e.target.value });
@@ -37,10 +51,10 @@ export default function Login() {
     }
   }, [user]);
 
-  const login = async () => {
+  const login = async (data) => {
     try {
       setLoading(true);
-      const credentials = await loginUser(form.email, form.password);
+      const credentials = await loginUser(data.email, data.password);
       setUser({ user: credentials.user, userData: null });
       toast({
         title: 'You are logged in',
@@ -49,6 +63,8 @@ export default function Login() {
         position: 'top',
         duration: 5000,
       });
+      reset();
+      navigate('/');
     } catch (error) {
       toast({
         title: 'Logging in failed',
@@ -67,40 +83,51 @@ export default function Login() {
     <Center>
       <Box border={'1px solid'} borderRadius={'lg'} p={4} mt={'70px'}>
         <Heading mb={4}>Log In</Heading>
-        <FormControl>
-          <FormLabel>Email: </FormLabel>
-          <Input
-            value={form.email}
-            onChange={updateForm('email')}
-            type="text"
-            placeholder="enter@youremail.com"
-            mb={4}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Password: </FormLabel>
-          <Input
-            value={form.password}
-            onChange={updateForm('password')}
-            type="password"
-            placeholder="password here"
-          />
-        </FormControl>
-        <Button
-          mt={4}
-          type="submit"
-          colorScheme="orange"
-          bg="orange.300"
-          color={'black'}
-          variant={'ghost'}
-          size={'md'}
-          w={'full'}
-          isLoading={isLoading}
-          loadingText="Logging In"
-          onClick={login}
-        >
-          Log In
-        </Button>
+        <form onSubmit={handleSubmit((data) => login(data))}>
+          <FormControl isInvalid={errors.email}>
+            <FormLabel>Email: </FormLabel>
+            <Input
+              ref={emailRef}
+              required
+              {...register('email', emailValidation)}
+              onChange={updateForm('email')}
+              type="text"
+              placeholder="enter@youremail.com"
+              mb={4}
+            />
+            <FormErrorMessage pb={2}>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.password}>
+            <FormLabel>Password: </FormLabel>
+            <Input
+              ref={passwordRef}
+              required
+              {...register('password', passwordValidation)}
+              onChange={updateForm('password')}
+              type="password"
+              placeholder="password here"
+            />
+            <FormErrorMessage>
+              {errors.password && errors.password.message}
+            </FormErrorMessage>
+          </FormControl>
+          <Button
+            mt={4}
+            type="submit"
+            colorScheme="orange"
+            bg="orange.300"
+            color={'black'}
+            variant={'ghost'}
+            size={'md'}
+            w={'full'}
+            isLoading={isLoading}
+            loadingText="Logging In"
+          >
+            Log In
+          </Button>
+        </form>
         <Text mt={4}>
           You don&apos;t have an account?{' '}
           <Link

@@ -169,9 +169,10 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
           </Button>
         )}
         <Button
+          as={Link}
+          to={`/post/${postId}`}
           bg={'orange.300'}
           color={'black'}
-          onClick={() => navigate(`post/${postId}`)}
         >
           Read more
         </Button>
