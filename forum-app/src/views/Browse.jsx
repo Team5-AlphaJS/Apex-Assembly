@@ -16,7 +16,7 @@ export default function Browse() {
         const postsData = postSnapshot.val() || {};
 
         let postsArray = Object.entries(postsData).map(([postId, postData]) => ({ id: postId, ...postData }));
-        console.log(postsArray)
+        
         if (filterByCategory) {
           postsArray = postsArray.filter(post => post.category === filterByCategory);
         }
@@ -33,7 +33,7 @@ export default function Browse() {
           postsArray.sort((a, b) => {
             const likesCountA = Object.keys(a.likes || {}).length;
             const likesCountB = Object.keys(b.likes || {}).length;
-            return likesCountA - likesCountB;
+            return likesCountB - likesCountA;
           });
         }
 

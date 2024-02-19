@@ -1,90 +1,182 @@
-import { Button, Container, useToast } from "@chakra-ui/react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
+import {
+  Button,
+  Container,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Heading,
+  Input,
+  Select,
+  Textarea,
+  useColorMode,
+  useToast,
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
+import {
+  postContentValidation,
+  postTitleValidation,
+  urlValidation,
+} from '../../validation/form-validation';
 
 const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const toast = useToast();
+  const [isLoading, setLoading] = useState(false);
+  //   const TITLE_MIN_LENGTH = 16;
+  //   const TITLE_MAX_LENGTH = 64;
+  //   const CONTENT_MIN_LENGTH = 32;
+  //   const CONTENT_MAX_LENGTH = 8192;
+  const { colorMode } = useColorMode();
+  const isDarkMode = colorMode === 'dark';
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    const toast = useToast();
-    const [isLoading, setLoading] = useState(false);
-    const TITLE_MIN_LENGTH = 16;
-    const TITLE_MAX_LENGTH = 64;
-    const CONTENT_MIN_LENGTH = 32;
-    const CONTENT_MAX_LENGTH = 8192;
+  const updatePost = (prop) => (e) => {
+    setPost({ ...post, [prop]: e.target.value });
+  };
 
-    const updatePost = prop => e => {
-        setPost({ ...post, [prop]: e.target.value });
-    };
+  const onSubmit = async () => {
+    try {
+      setLoading(true);
+      //   if (
+      //     post.title.length < TITLE_MIN_LENGTH ||
+      //     post.title.length > TITLE_MAX_LENGTH
+      //   ) {
+      //     return console.log(
+      //       `Title must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters long!`
+      //     );
+      //   }
 
-    const onSubmit = async () => {
-        try {
-            setLoading(true);
-            if (post.title.length < TITLE_MIN_LENGTH || post.title.length > TITLE_MAX_LENGTH) {
-                return console.log(`Title must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters long!`);
-            }
+      //   if (
+      //     post.content.length < CONTENT_MIN_LENGTH ||
+      //     post.content.length > CONTENT_MAX_LENGTH
+      //   ) {
+      //     return console.log(
+      //       `Description must be between ${CONTENT_MIN_LENGTH} and ${CONTENT_MAX_LENGTH} characters long!`
+      //     );
+      //   }
 
-            if (post.content.length < CONTENT_MIN_LENGTH || post.content.length > CONTENT_MAX_LENGTH) {
-                return console.log(`Description must be between ${CONTENT_MIN_LENGTH} and ${CONTENT_MAX_LENGTH} characters long!`)
-            }
+      await requestFunc(post);
 
-            await requestFunc(post);
+      toast({
+        title: `Post ${onEdit ? 'edited' : 'created'} successfully`,
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+        duration: 5000,
+      });
+      reset();
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setLoading(false);
+      navigate('/');
+    }
+  };
 
-            toast({
-                title: `Post ${onEdit ? 'edited' : 'created'} successfully`,
-                status: "success",
-                isClosable: true,
-                position: "top",
-                duration: 5000,
-            });
-        } catch (e) {
-            console.log(e.message);
-        } finally {
-            setLoading(false);
-            navigate('/');
-        }
-    };
-
-    return (
-        <Container maxW="100%">
-            <h1>{onEdit ? 'Edit' : 'Create'} post</h1>
-            <label htmlFor="title">Title: </label>
-            <input
-                type="text"
-                name="title"
-                id="title"
-                value={post.title}
-                onChange={updatePost('title')}
-
-            /><br />
-            <label htmlFor="content">Content: </label>
-            <textarea
-                id="content"
-                value={post.content}
-                onChange={updatePost('content')}
-            /><br />
-            <select id="category" value={post.category} onChange={updatePost('category')}>
-                <option value="">Category</option>
-                <option value="drivers">drivers</option>
-                <option value="tracks">tracks</option>
-                <option value="teams">teams</option>
-                <option value="cars">cars</option>
-            </select><br />
-            <input type="text" placeholder="Image Url (optional)" value={post.imgUrl} onChange={updatePost('imgUrl')} />
-            <Button type="submit" colorScheme="green" bg="green.300" size={'md'} w={150}
-                isLoading={isLoading} loadingText={onEdit ? 'Saving' : 'Publishing'} onClick={onSubmit}
-            >
-                {onEdit ? 'Save': 'Publish'}
-            </Button>
-        </Container>
-    )
+  return (
+    <Container
+      maxW="90%"
+      border={'1px solid'}
+      p={4}
+      borderRadius={'lg'}
+      bg={isDarkMode ? 'gray.900' : 'gray.300'}
+    >
+      <Heading mb={4}>{onEdit ? 'Edit' : 'Create'} post</Heading>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl isInvalid={errors.title}>
+          <FormLabel>Title: </FormLabel>
+          <Input
+            type="text"
+            placeholder="Post Title Here"
+            focusBorderColor="orange.300"
+            mb={4}
+            value={post.title}
+            {...register('title', postTitleValidation)}
+            onChange={updatePost('title')}
+          />
+          <FormErrorMessage>
+            {errors.title && errors.title.message}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.content}>
+          <FormLabel>Content: </FormLabel>
+          <Textarea
+            placeholder="Post Content Here"
+            focusBorderColor="orange.300"
+            mb={4}
+            value={post.content}
+            {...register('title', postContentValidation)}
+            onChange={updatePost('content')}
+          />
+          <FormErrorMessage>
+            {errors.content && errors.content.message}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.category}>
+          <FormLabel>Category: </FormLabel>
+          <Select
+            mb={4}
+            focusBorderColor="orange.300"
+            value={post.category}
+            {...register('category', { required: 'Category is required' })}
+            onChange={updatePost('category')}
+          >
+            <option value="">Select Category</option>
+            <option value="drivers">drivers</option>
+            <option value="tracks">tracks</option>
+            <option value="teams">teams</option>
+            <option value="cars">cars</option>
+          </Select>
+          <FormErrorMessage>
+            {errors.category && errors.category.message}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.imgUrl}>
+          <FormLabel>Image URL: </FormLabel>
+          <Input
+            type="text"
+            placeholder="Image Url (optional)"
+            focusBorderColor="orange.300"
+            mb={4}
+            value={post.imgUrl}
+            {...register('imgUrl', { validate: urlValidation })}
+            onChange={updatePost('imgUrl')}
+          />
+          <FormErrorMessage mb={2}>
+            {errors.imgUrl && errors.imgUrl.message}
+          </FormErrorMessage>
+        </FormControl>
+        <Button
+          type="submit"
+          colorScheme="orange"
+          bg="orange.300"
+          color={'black'}
+          size={'md'}
+          w={125}
+          variant={'ghost'}
+          isLoading={isLoading}
+          loadingText={onEdit ? 'Saving' : 'Publishing'}
+        >
+          {onEdit ? 'Save' : 'Publish'}
+        </Button>
+      </form>
+    </Container>
+  );
 };
 
 CreateEditPost.propTypes = {
-    post: PropTypes.object.isRequired,
-    setPost: PropTypes.func.isRequired,
-    requestFunc: PropTypes.func.isRequired,
-    onEdit: PropTypes.bool,
+  post: PropTypes.object.isRequired,
+  setPost: PropTypes.func.isRequired,
+  requestFunc: PropTypes.func.isRequired,
+  onEdit: PropTypes.bool,
 };
 
 export default CreateEditPost;

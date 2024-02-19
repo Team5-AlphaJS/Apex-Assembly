@@ -52,7 +52,7 @@ export default function AdminDashboard() {
       </VStack>
       <Center>
         <Box p="6">
-          <Flex flexWrap="wrap" justifyContent="flex-start" gap={3}>
+          <Flex flexWrap="wrap" justifyContent="center" gap={3}>
             {users.map(
               (user) =>
                 user.role !== 'admin' && (
