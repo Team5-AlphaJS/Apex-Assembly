@@ -10,6 +10,7 @@ const Comment = ({ commentId, commentData, postId, post, setPost }) => {
 
     const [onEdit, setOnEdit] = useState(false);
     const [commentContent, setCommentContent] = useState(commentData.content);
+    // Add a new state for the edited comment content
 
     const onDelete = async () => {
         try {
@@ -39,7 +40,7 @@ const Comment = ({ commentId, commentData, postId, post, setPost }) => {
                 <input
                     type="text"
                     value={commentContent}
-                    onChange={(e) => setCommentContent(e.target.value)}
+                    onChange={(e) => setCommentContent(e.target.value)} // state is changed but before the update in the database
                     onBlur={() => setOnEdit(false)}
                 />
                 <button onClick={() => {
@@ -55,7 +56,7 @@ const Comment = ({ commentId, commentData, postId, post, setPost }) => {
                     <h4>{commentData.author}</h4>
                     <p>{commentData.content}</p>
                 </div>
-                {userData && userData.username === commentData.author && <button onClick={() => setOnEdit(true)}>Edit</button>}
+                {userData && userData.username === commentData.author && <button onClick={() => setOnEdit(true)}>Edit</button>} {/* onClick - new state (copy of the comment content that will be changed from the input) */}
                 {userData && (userData.username === commentData.author || userData.role === 'admin') && <button onClick={onDelete}>Delete</button>}
             </div>
         );
