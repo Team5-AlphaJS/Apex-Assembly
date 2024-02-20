@@ -1,5 +1,13 @@
 import { Image } from '@chakra-ui/image';
-import { Box, Container, Flex, Heading, Text, VStack } from '@chakra-ui/layout';
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/layout';
 import { useColorMode } from '@chakra-ui/color-mode';
 import whiteLogo from '../../assets/white-helmet.svg';
 import blackLogo from '../../assets/black-helmet.svg';
@@ -11,12 +19,17 @@ export default function About() {
     'https://ih1.redbubble.net/image.5139971379.0947/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg';
   const alex =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmlIIWOMV5dIFexVaroDifbKkDf3sWu7a8FQ&usqp=CAU';
+  const marto = 'https://s.rfi.fr/media/display/460634e0-1313-11ea-b1e4-005056a99247/w:1280/p:1x1/raikkonen.jpg'
+  const stefan = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSwHgFpW_e8qpfix8sgJrXo8-IWLpZPn0OdA&usqp=CAU'
 
   return (
     <Container maxW="container.lg" py={5}>
       <Box textAlign={'center'}>
         <Heading mb={4}>🏎️ About our Formula 1 Forum 🏎️</Heading>
-        <Text fontSize={'19px'}>Connecting fans from all over the world!</Text>
+        <Text fontSize={'19px'} mb={3}>Connecting fans from all over the world!</Text>
+        <Link color={'orange.300'} fontSize={'19px'} href="https://github.com/Team5-AlphaJS/Forum-App" target="_blank">
+          Project Repository Link
+        </Link>
       </Box>
       <Flex mt={5} alignItems="center" justifyContent="center">
         <Image
@@ -65,15 +78,15 @@ export default function About() {
           committed to fostering a positive community where everyone can share
           their love for our favorite sport.
         </Text>
-        <Flex mt={10} alignItems="center" justifyContent="center">
-          <Image src={alex} alt="alex's avatar" />
+        <Flex mt={10} alignItems="center" justifyContent="left">
+          <Image src={alex} alt="alex's driver" />
           <VStack ml={6} alignItems="start" spacing={2}>
             <Text fontSize="xl" fontWeight="bold">
               Alexander Velikov
             </Text>
             <Text mb={4}>The Number 1 McLaren fan.</Text>
             <Text>
-              <b>Favorite Team? </b>- McLaren, of course! :D
+              <b>Favorite Team? </b>- McLaren...what did you expect?
             </Text>
             <Text>
               <b>Favorite Drivers? </b>- Lando Norris, Lewis Hamilton and
@@ -82,40 +95,38 @@ export default function About() {
           </VStack>
         </Flex>
 
-        {/* Will be changed later */}
-        <Flex mt={10} alignItems="center" justifyContent="center">
-          <Image src={alex} alt="alex's avatar" />
+        <Flex mt={10} alignItems="center" justifyContent="left">
+          <Image src={marto} alt="marto's driver" w={'275px'}/>
           <VStack ml={6} alignItems="start" spacing={2}>
             <Text fontSize="xl" fontWeight="bold">
               Martin Valov
             </Text>
-            <Text mb={4}>The Number 1 McLaren fan.</Text>
+            <Text mb={4}>Drinks only Redbull.</Text>
             <Text>
-              <b>Favorite Team? </b>- McLaren, of course! :D
+              <b>Favorite Team? </b>- Redbull Racing
             </Text>
             <Text>
-              <b>Favorite Drivers? </b>- Lando Norris, Lewis Hamilton and
-              Michael Schumacher.
+              <b>Favorite Driver? </b>- Kimi Raikkonen
             </Text>
           </VStack>
         </Flex>
 
-        <Flex mt={10} alignItems="center" justifyContent="center">
-          <Image src={alex} alt="alex's avatar" />
+        <Flex mt={10} alignItems="center" justifyContent="left">
+          <Image src={stefan} alt="stefan's driver" w={'275px'}/>
           <VStack ml={6} alignItems="start" spacing={2}>
             <Text fontSize="xl" fontWeight="bold">
               Stefan Trajkovski
             </Text>
-            <Text mb={4}>The Number 1 McLaren fan.</Text>
+            <Text mb={4}>Still living in the 90s.</Text>
             <Text>
-              <b>Favorite Team? </b>- McLaren, of course! :D
+              <b>Favorite Team? </b>- Honda
             </Text>
             <Text>
-              <b>Favorite Drivers? </b>- Lando Norris, Lewis Hamilton and
-              Michael Schumacher.
+              <b>Favorite Driver? </b>- Ayrton Senna (RIP 🕊️)
             </Text>
           </VStack>
         </Flex>
+
       </Box>
     </Container>
   );
