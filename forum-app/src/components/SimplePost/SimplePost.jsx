@@ -13,26 +13,23 @@ import {
   Flex,
   Heading,
   Image,
-  Modal,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Text,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
 import { deletePost, updatePostLikedStatus } from '../../services/post.service';
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
-import { updateUserLikedPosts } from '../../services/users.service';
+import {
+  getUserByUsername,
+  updateUserLikedPosts,
+} from '../../services/users.service';
 import { FiUser } from 'react-icons/fi';
 
 const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
   const { userData } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const navigate = useNavigate();
+  // const toast = useToast();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [like, setLike] = useState(true);
   const options = {
     weekday: 'long',
@@ -40,31 +37,44 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
     month: 'long',
     day: 'numeric',
   };
+  const [authorAvatar, setAuthorAvatar] = useState('');
+  const [authorUid, setAuthorUid] = useState('');
 
-  const onSubmitDelete = async () => {
-    try {
-      await deletePost(postId);
-      toast({
-        title: 'Post deleted successfully.',
-        status: 'success',
-        position: 'top',
-        duration: 5000,
-        isClosable: true,
-      });
-      setPosts(posts.filter((post) => post[0] !== postId));
-      onClose();
-      navigate('/');
-    } catch (error) {
-      toast({
-        title: 'An error occurred.',
-        description: 'Failed to delete post.',
-        status: 'error',
-        position: 'top',
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  };
+  useEffect(() => {
+    const fetchAuthorData = async () => {
+      const userSnapshot = await getUserByUsername(postData?.author);
+      const avatarUrl = userSnapshot.val()?.avatarUrl;
+      const authorUid = userSnapshot.val()?.uid;
+      setAuthorAvatar(avatarUrl);
+      setAuthorUid(authorUid);
+    };
+    fetchAuthorData();
+  }, [postData?.author]);
+
+  // const onSubmitDelete = async () => {
+  //   try {
+  //     await deletePost(postId);
+  //     toast({
+  //       title: 'Post deleted successfully.',
+  //       status: 'success',
+  //       position: 'top',
+  //       duration: 5000,
+  //       isClosable: true,
+  //     });
+  //     setPosts(posts.filter((post) => post[0] !== postId));
+  //     onClose();
+  //     navigate('/');
+  //   } catch (error) {
+  //     toast({
+  //       title: 'An error occurred.',
+  //       description: 'Failed to delete post.',
+  //       status: 'error',
+  //       position: 'top',
+  //       duration: 5000,
+  //       isClosable: true,
+  //     });
+  //   }
+  // };
 
   const likeHandle = async () => {
     setLike(!like);
@@ -98,24 +108,26 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
     }
   }, [userData]);
 
+  
   return (
     <Card key={postId} maxW="md" p={4} boxShadow="md" borderRadius="md" mb={5}>
       <CardHeader>
         <Flex flex="1" alignItems="center" flexWrap="wrap">
-          {/* <Link to={`/user/${postData?.author}`}>
-              {postData.author && userData && (
-                <Avatar
-                  name={userData?.username}
-                  src={userData?.avatarUrl || FiUser}
-                  as="button"
-                />
-              )}
-              {!postData.author && (
-                <Avatar as="button">
-                  <FiUser />
-                </Avatar>
-              )}
-            </Link> */}
+          <Link to={`/user/${authorUid}`}>
+            {postData.author && userData && (
+              <Avatar
+                mr={2}
+                name={postData?.author}
+                src={authorAvatar || <FiUser />}
+                as="button"
+              />
+            )}
+            {!postData.author && (
+              <Avatar>
+                <FiUser />
+              </Avatar>
+            )}
+          </Link>
           <Box>
             <Heading size="sm">From: {postData?.author}</Heading>
             <Text fontWeight="semibold" fontSize="xs" letterSpacing="wide">
@@ -134,13 +146,7 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
       </CardHeader>
 
       <CardBody pt={0}>
-        <Heading
-          size="sm"
-          px="15px"
-          pb="15px"
-          pt="10px"
-          align={'center'}
-        >
+        <Heading size="sm" px="15px" pb="15px" pt="10px" align={'center'}>
           {postData?.title}
         </Heading>
         <Text fontWeight="medium" noOfLines={[1, 2, 3]}>

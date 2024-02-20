@@ -61,7 +61,7 @@ export default function UserPosts() {
         textAlign="center"
         // bg={isDarkMode ? 'gray.700' : 'white'}
       >
-        Your Posts
+        User&apos;s Posts
       </Heading>
       <VStack align="center">
         <Flex

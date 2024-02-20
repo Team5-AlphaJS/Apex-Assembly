@@ -62,7 +62,7 @@ export default function LikedPosts() {
         textAlign="center"
         // bg={isDarkMode ? 'gray.700' : 'white'}
       >
-        Your Liked Posts
+        User&apos;s Liked Posts
       </Heading>
       <VStack align="center">
         <Flex
