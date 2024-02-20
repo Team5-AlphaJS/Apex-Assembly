@@ -11,7 +11,7 @@ import {
   useColorMode,
   useToast,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -20,15 +20,13 @@ import {
   postTitleValidation,
   urlValidation,
 } from '../../validation/form-validation';
+import { AuthContext } from '../../context/AuthContext';
 
 const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
+  const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
   const toast = useToast();
   const [isLoading, setLoading] = useState(false);
-  //   const TITLE_MIN_LENGTH = 16;
-  //   const TITLE_MAX_LENGTH = 64;
-  //   const CONTENT_MIN_LENGTH = 32;
-  //   const CONTENT_MAX_LENGTH = 8192;
   const { colorMode } = useColorMode();
   const isDarkMode = colorMode === 'dark';
   const {
@@ -45,28 +43,9 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
   const onSubmit = async () => {
     try {
       setLoading(true);
-      //   if (
-      //     post.title.length < TITLE_MIN_LENGTH ||
-      //     post.title.length > TITLE_MAX_LENGTH
-      //   ) {
-      //     return console.log(
-      //       `Title must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters long!`
-      //     );
-      //   }
-
-      //   if (
-      //     post.content.length < CONTENT_MIN_LENGTH ||
-      //     post.content.length > CONTENT_MAX_LENGTH
-      //   ) {
-      //     return console.log(
-      //       `Description must be between ${CONTENT_MIN_LENGTH} and ${CONTENT_MAX_LENGTH} characters long!`
-      //     );
-      //   }
-
       await requestFunc(post);
-
       toast({
-        title: `Post ${onEdit ? 'edited' : 'created'} successfully`,
+        title: `Post ${onEdit ? 'edited' : 'created'} successfully.`,
         status: 'success',
         isClosable: true,
         position: 'top',
@@ -77,7 +56,7 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
       console.log(e.message);
     } finally {
       setLoading(false);
-      navigate('/');
+      navigate(`/user/${userData.uid}/posts`);
     }
   };
 
@@ -113,7 +92,7 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
             focusBorderColor="orange.300"
             mb={4}
             value={post.content}
-            {...register('title', postContentValidation)}
+            {...register('content', postContentValidation)}
             onChange={updatePost('content')}
           />
           <FormErrorMessage>

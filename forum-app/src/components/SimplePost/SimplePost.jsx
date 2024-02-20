@@ -133,7 +133,7 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
             <Text fontWeight="semibold" fontSize="xs" letterSpacing="wide">
               Created on:{' '}
               {userData &&
-                new Date(userData?.createdOn).toLocaleDateString(
+                new Date(postData?.createdOn).toLocaleDateString(
                   'en-US',
                   options
                 )}
