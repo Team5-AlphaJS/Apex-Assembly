@@ -10,7 +10,6 @@ const Comment = ({ commentId, commentData, postId, post, setPost }) => {
 
     const [onEdit, setOnEdit] = useState(false);
     const [commentContent, setCommentContent] = useState(commentData.content);
-    // Add a new state for the edited comment content
 
     const onDelete = async () => {
         try {
@@ -25,44 +24,36 @@ const Comment = ({ commentId, commentData, postId, post, setPost }) => {
 
     const editComment = async () => {
         try {
-            await updateComment(postId, commentId, commentContent);
+            await updateComment(postId, commentId, commentContent)
         } catch (e) {
             console.log(e.message);
         } finally {
             post.comments[commentId].content = commentContent;
             setPost({ ...post });
         }
-    }
+    };
 
-    if (onEdit) {
-        return (
+    return (
+        <div className="comment">
             <div>
-                <input
-                    type="text"
-                    value={commentContent}
-                    onChange={(e) => setCommentContent(e.target.value)} // state is changed but before the update in the database
-                    onBlur={() => setOnEdit(false)}
-                />
-                <button onClick={() => {
-                    editComment();
-                    setOnEdit(false);
-                }}>Comment</button>
+                <h4>By: {commentData.author}</h4>
+                {onEdit ? (
+                    <>
+                        <input
+                            value={commentContent}
+                            onChange={(e) => setCommentContent(e.target.value)}
+                        />
+                        <button onClick={() => {
+                            editComment();
+                            setOnEdit(false);
+                        }}>Comment</button>
+                    </>
+                ) : <p>{commentData.content}</p>}
             </div>
-        );
-    } else {
-        return (
-            <div className="comment">
-                <div>
-                    <h4>{commentData.author}</h4>
-                    <p>{commentData.content}</p>
-                </div>
-                {userData && userData.username === commentData.author && <button onClick={() => setOnEdit(true)}>Edit</button>} {/* onClick - new state (copy of the comment content that will be changed from the input) */}
-                {userData && (userData.username === commentData.author || userData.role === 'admin') && <button onClick={onDelete}>Delete</button>}
-            </div>
-        );
-    }
-
-
+            {userData && userData.username === commentData.author && <button onClick={() => setOnEdit(true)}>Edit</button>}
+            {userData && (userData.username === commentData.author || userData.role === 'admin') && <button onClick={onDelete}>Delete</button>}
+        </div>
+    );
 };
 
 Comment.propTypes = {
