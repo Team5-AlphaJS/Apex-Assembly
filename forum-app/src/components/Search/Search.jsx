@@ -49,6 +49,7 @@ export default function Search() {
               Search for: {searchTerm}
             </Heading>
           </Flex>
+          <br />
           <VStack spacing={4} mb={'3rem'}>
             {filteredPosts.map((post) => (
               <SimplePost

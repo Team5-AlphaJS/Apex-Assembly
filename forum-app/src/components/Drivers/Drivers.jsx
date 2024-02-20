@@ -1,4 +1,12 @@
-import { Box, Center, Flex, Heading, Image, Text, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 export default function Drivers() {
@@ -37,7 +45,30 @@ export default function Drivers() {
             <Box
               key={driver.driver_number}
               p={4}
-              border={isDarkMode ? '1px solid white' : '2px solid black'}
+              border={isDarkMode ? '1px solid white' : '1px solid black'}
+              bgColor={
+                driver.team_name === 'Alfa Romeo'
+                  ? 'green.400'
+                  : driver.team_name === 'AlphaTauri'
+                  ? 'blue.400'
+                  : driver.team_name === 'Alpine'
+                  ? 'pink.400'
+                  : driver.team_name === 'Aston Martin'
+                  ? 'green.600'
+                  : driver.team_name === 'Ferrari'
+                  ? 'red.600'
+                  : driver.team_name === 'Haas F1 Team'
+                  ? 'gray.400'
+                  : driver.team_name === 'McLaren'
+                  ? 'orange.400'
+                  : driver.team_name === 'Mercedes'
+                  ? 'teal.400'
+                  : driver.team_name === 'Red Bull Racing'
+                  ? 'blue.700'
+                  : driver.team_name === 'Williams'
+                  ? 'blue.300'
+                  : 'gray.300'
+              }
               borderRadius="md"
             >
               <Text fontSize="xl" fontWeight="bold" align={'center'}>
@@ -45,16 +76,18 @@ export default function Drivers() {
               </Text>
               <Text align={'center'}>
                 Team:{' '}
+                <b>
                 {driver.team_name === 'AlphaTauri'
                   ? 'Racing Bulls'
                   : driver.team_name === 'Alfa Romeo'
                   ? 'Kick Sauber'
                   : driver.team_name}
+                </b>
               </Text>
-              <Text align={'center'}>Number: {driver.driver_number}</Text>
-              <Text align={'center'}>Nationality: {driver.country_code}</Text>
+              <Text align={'center'}>Driver Number: <b>{driver.driver_number}</b></Text>
+              <Text align={'center'}>Nationality: <b>{driver.country_code}</b></Text>
               <Center>
-                <Image src={driver.headshot_url} alt='driver photo' />
+                <Image src={driver.headshot_url} alt="no photo" />
               </Center>
             </Box>
           ))}
