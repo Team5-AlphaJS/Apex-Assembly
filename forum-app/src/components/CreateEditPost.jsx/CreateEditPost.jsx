@@ -56,7 +56,7 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
       console.log(e.message);
     } finally {
       setLoading(false);
-      navigate(`/user/${userData.uid}/posts`);
+      navigate(-1);
     }
   };
 

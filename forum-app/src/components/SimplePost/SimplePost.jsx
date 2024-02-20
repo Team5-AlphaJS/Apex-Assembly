@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import {
   Avatar,
@@ -14,10 +14,8 @@ import {
   Heading,
   Image,
   Text,
-  useDisclosure,
-  useToast,
 } from '@chakra-ui/react';
-import { deletePost, updatePostLikedStatus } from '../../services/post.service';
+import { updatePostLikedStatus } from '../../services/post.service';
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import {
   getUserByUsername,
@@ -27,9 +25,6 @@ import { FiUser } from 'react-icons/fi';
 
 const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
   const { userData } = useContext(AuthContext);
-  // const navigate = useNavigate();
-  // const toast = useToast();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [like, setLike] = useState(true);
   const options = {
     weekday: 'long',
@@ -50,31 +45,6 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
     };
     fetchAuthorData();
   }, [postData?.author]);
-
-  // const onSubmitDelete = async () => {
-  //   try {
-  //     await deletePost(postId);
-  //     toast({
-  //       title: 'Post deleted successfully.',
-  //       status: 'success',
-  //       position: 'top',
-  //       duration: 5000,
-  //       isClosable: true,
-  //     });
-  //     setPosts(posts.filter((post) => post[0] !== postId));
-  //     onClose();
-  //     navigate('/');
-  //   } catch (error) {
-  //     toast({
-  //       title: 'An error occurred.',
-  //       description: 'Failed to delete post.',
-  //       status: 'error',
-  //       position: 'top',
-  //       duration: 5000,
-  //       isClosable: true,
-  //     });
-  //   }
-  // };
 
   const likeHandle = async () => {
     setLike(!like);
@@ -181,58 +151,6 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
           Read more
         </Button>
       </CardFooter>
-
-      {/* {userData && userData.username === postData.author && (
-        <Button
-          ml={'5px'}
-          size={'sm'}
-          variant="ghost"
-          color="black"
-          bg="orange.300"
-          onClick={() => navigate(`/edit-post/${postId}`)}
-        >
-          Edit
-        </Button>
-      )}
-      {userData &&
-        (userData.username === postData.author ||
-          userData.role === 'admin') && (
-          <>
-            <Button
-              ml={'5px'}
-              size={'sm'}
-              variant="ghost"
-              color="black"
-              bg="orange.300"
-              onClick={onOpen}
-            >
-              Delete
-            </Button>
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader p="15px" m="15px" textAlign="center">
-                  Are you sure you want to delete this post?
-                </ModalHeader>
-                <ModalCloseButton />
-
-                <ModalFooter>
-                  <Button bg="green.400" color="white" mr={3} onClick={onClose}>
-                    No
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    color="white"
-                    bg="red.400"
-                    onClick={() => onSubmitDelete(postId)}
-                  >
-                    Yes
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </>
-        )} */}
     </Card>
   );
 };
