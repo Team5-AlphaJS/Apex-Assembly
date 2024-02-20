@@ -23,7 +23,6 @@ import {
 import { AuthContext } from '../../context/AuthContext';
 
 const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
-  const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
   const toast = useToast();
   const [isLoading, setLoading] = useState(false);
