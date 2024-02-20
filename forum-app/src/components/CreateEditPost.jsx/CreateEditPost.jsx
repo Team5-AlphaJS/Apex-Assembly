@@ -11,7 +11,7 @@ import {
   useColorMode,
   useToast,
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -20,7 +20,7 @@ import {
   postTitleValidation,
   urlValidation,
 } from '../../validation/form-validation';
-import { AuthContext } from '../../context/AuthContext';
+
 
 const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
   const navigate = useNavigate();
