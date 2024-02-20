@@ -108,13 +108,12 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
     }
   }, [userData]);
 
-  
   return (
     <Card key={postId} maxW="md" p={4} boxShadow="md" borderRadius="md" mb={5}>
       <CardHeader>
         <Flex flex="1" alignItems="center" flexWrap="wrap">
           <Link to={`/user/${authorUid}`}>
-            {postData.author && userData && (
+            {postData.author && (
               <Avatar
                 mr={2}
                 name={postData?.author}
@@ -132,11 +131,10 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
             <Heading size="sm">From: {postData?.author}</Heading>
             <Text fontWeight="semibold" fontSize="xs" letterSpacing="wide">
               Created on:{' '}
-              {userData &&
-                new Date(postData?.createdOn).toLocaleDateString(
-                  'en-US',
-                  options
-                )}
+              {new Date(postData?.createdOn).toLocaleDateString(
+                'en-US',
+                options
+              )}
             </Text>
             <Text fontWeight="semibold" fontSize="xs" letterSpacing="wide">
               Category: {postData.category}
