@@ -26,6 +26,8 @@ import { FiUser } from 'react-icons/fi';
 const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
   const { userData } = useContext(AuthContext);
   const [like, setLike] = useState(true);
+  const [likesCount, setLikesCount] = useState(postData.likes ? Object.keys(postData?.likes).length  : 0)
+
   const options = {
     weekday: 'long',
     year: 'numeric',
@@ -48,6 +50,9 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
 
   const likeHandle = async () => {
     setLike(!like);
+
+    const newLikesCount = like ? likesCount + 1 : likesCount - 1;
+    setLikesCount(newLikesCount);
 
     if (userData && userData.uid) {
       try {
@@ -125,7 +130,7 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
       {postData?.imgUrl && (
         <Image objectFit="cover" src={postData?.imgUrl} alt="post photo" />
       )}
-
+          
       <CardFooter justify="space-between" flexWrap="wrap">
         {userData && (
           <Button
@@ -142,6 +147,7 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
             </span>
           </Button>
         )}
+        <Text color="gray.500" mb={2}>Likes: {likesCount}</Text>
         <Button
           as={Link}
           to={`/post/${postId}`}
