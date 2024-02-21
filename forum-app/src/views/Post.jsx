@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-// import SimplePost from '../components/SimplePost/SimplePost';
 import { AuthContext } from '../context/AuthContext';
 import { uploadComment } from '../services/comment.service';
 import {
@@ -328,7 +327,7 @@ const Post = ({ updateUserData }) => {
           mb={'20px'}
           bgColor={isDarkMode ? 'gray.700' : 'gray.100'}
         >
-          <Avatar mr={2} name={post?.author} src={authorAvatar || <FiUser />} />
+          <Avatar mr={2} name={userData?.username} src={userData?.avatarUrl || <FiUser />} />
           <Input
             type="text"
             placeholder="Write your comment..."

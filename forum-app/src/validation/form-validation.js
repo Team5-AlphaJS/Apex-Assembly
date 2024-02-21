@@ -39,8 +39,8 @@ export const firstNameValidation = {
     message: "Please enter name",
   },
   minLength: {
-    value: 4,
-    message: "First name must be at least 4 characters long",
+    value: 3,
+    message: "First name must be at least 3 characters long",
   },
   maxLength: {
     value: 32,
@@ -54,8 +54,8 @@ export const lastNameValidation = {
     message: "Please enter name",
   },
   minLength: {
-    value: 4,
-    message: "Last name must be at least 4 characters long",
+    value: 3,
+    message: "Last name must be at least 3 characters long",
   },
   maxLength: {
     value: 32,
