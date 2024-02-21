@@ -354,7 +354,7 @@ const Post = ({ updateUserData }) => {
           )}
         </Flex>
       ) : (
-        <p>You are not allowed to comment!</p>
+        <Text ml={'37.5px'} color={'red'}>You are not allowed to comment!</Text>
       )}
 
       {post && 'comments' in post && Object.keys(post.comments).length ? (
