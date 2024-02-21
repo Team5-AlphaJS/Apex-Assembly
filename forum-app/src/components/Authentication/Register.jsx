@@ -27,6 +27,11 @@ import {
   usernameValidation,
 } from '../../validation/form-validation';
 
+/**
+ * Renders the Register component.
+ * 
+ * @returns {JSX.Element} The Register component.
+ */
 export default function Register() {
   const { setUser } = useContext(AuthContext);
   const [form, setForm] = useState({
@@ -48,10 +53,22 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
+  /**
+   * Updates the form state with the provided property value.
+   *
+   * @param {string} prop - The property to update in the form state.
+   * @returns {Function} - The event handler function.
+   */
   const updateForm = (prop) => (e) => {
     setForm({ ...form, [prop]: e.target.value });
   };
 
+  /**
+   * Handles the registration process.
+   * 
+   * @param {Object} data - The registration data.
+   * @returns {Promise<void>} - A promise that resolves when the registration is complete.
+   */
   const onRegister = async (data) => {
     try {
       setLoading(true);

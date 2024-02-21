@@ -7,6 +7,11 @@ import blackLogo from '../../assets/black-helmet.svg';
 import whiteLogo from '../../assets/white-helmet.svg';
 import { FiEdit, FiMoon, FiSun, FiUser } from "react-icons/fi";
 
+/**
+ * Renders the header component.
+ *
+ * @returns {JSX.Element} The header component.
+ */
 export default function Header() {
   const { user, userData, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -15,6 +20,10 @@ export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
   const isDarkMode = useColorModeValue(false, true);
 
+  /**
+   * Logs out the user and updates the user state.
+   * @returns {Promise<void>}
+   */
   const logout = async () => {
     await logoutUser();
     setUser({ user: null, userData: null });
@@ -28,13 +37,16 @@ export default function Header() {
     navigate('/');
   };
 
+  /**
+   * Handles the form submission.
+   */
   const onSubmit = () => {
     if (search !== '') {
         setSearch(search);
         navigate(`/search`, { state: search });
         setSearch('');
     }
-};
+  };
 
   return (
     <Box

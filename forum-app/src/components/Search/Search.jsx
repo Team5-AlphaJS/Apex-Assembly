@@ -4,6 +4,11 @@ import { getAllPosts } from '../../services/post.service';
 import { Box, Center, Flex, Heading, VStack } from '@chakra-ui/react';
 import SimplePost from '../SimplePost/SimplePost';
 
+/**
+ * Renders a search component that filters and displays posts based on a search term.
+ *
+ * @returns {JSX.Element} The rendered search component.
+ */
 export default function Search() {
   const location = useLocation();
   const searchTerm = location.state;

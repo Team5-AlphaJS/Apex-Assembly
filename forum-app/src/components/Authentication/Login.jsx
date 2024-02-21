@@ -22,6 +22,11 @@ import {
   passwordValidation,
 } from '../../validation/form-validation';
 
+/**
+ * Renders the Login component.
+ *
+ * @returns {JSX.Element} The Login component.
+ */
 export default function Login() {
   const { user, setUser } = useContext(AuthContext);
   const [form, setForm] = useState({

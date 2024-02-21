@@ -9,6 +9,10 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
+/**
+ * Renders a list of drivers for the 2024 season.
+ * Fetches driver data from an API and displays driver information, including name, team, driver number, nationality, and photo.
+ */
 export default function Drivers() {
   const { colorMode } = useColorMode();
   const isDarkMode = colorMode === 'dark';

@@ -4,6 +4,11 @@ import { getPost } from "../services/post.service";
 import { changePost } from "../services/post.service";
 import CreateEditPost from "../components/CreateEditPost.jsx/CreateEditPost";
 
+/**
+ * Renders a component for editing a post.
+ *
+ * @returns {JSX.Element} The EditPost component.
+ */
 const EditPost = () => {
     const postId = useParams().id;
 
@@ -22,6 +27,11 @@ const EditPost = () => {
         });
     }, [postId]);
 
+    /**
+     * Handles the edit operation for a post.
+     * If any changes are made to the post's title, content, category, or image URL,
+     * the corresponding fields will be updated using the changePost function.
+     */
     const onEdit = async () => {
         if (post.title !== origPost.title) {
             await changePost(postId, 'title', post.title)
@@ -38,7 +48,6 @@ const EditPost = () => {
         if (post.imgUrl !== origPost.imgUrl) {
             await changePost(postId, 'imgUrl', post.imgUrl);
         }
-        // await changePost(postId, 'createdOn', Date.now()); under question for that
     };
 
     return (

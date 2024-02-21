@@ -16,13 +16,20 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { firstNameValidation, lastNameValidation, urlValidation } from '../../validation/form-validation';
 
+/**
+ * EditUser component for updating user details.
+ *
+ * @component
+ * @param {Object} userData - The initial user data.
+ * @param {Function} updateUserData - The function to update user data.
+ * @returns {JSX.Element} The EditUser component.
+ */
 export default function EditUser({ userData, updateUserData }) {
   const [user, setUser] = useState({
     ...userData,
     avatarUrl: userData?.avatarUrl || '',
     firstName: userData?.firstName || '',
     lastName: userData?.lastName || '',
-    // phoneNumber: userData?.phoneNumber || '', OPTIONAL
   });
   const navigate = useNavigate();
   const toast = useToast();
@@ -36,6 +43,10 @@ export default function EditUser({ userData, updateUserData }) {
     setUser({ ...user, [prop]: e.target.value });
   };
 
+  /**
+   * Handles the form submission for editing a user.
+   * @returns {Promise<void>} A promise that resolves when the user is updated successfully.
+   */
   const onSubmit = async () => {
     try {
       const updatedUserData = await editUser(user);

@@ -12,6 +12,11 @@ import { useColorMode } from '@chakra-ui/color-mode';
 import whiteLogo from '../../assets/white-helmet.svg';
 import blackLogo from '../../assets/black-helmet.svg';
 
+/**
+ * Renders the About component.
+ * This component displays information about the Formula 1 forum and its team members.
+ * @returns {JSX.Element} The rendered About component.
+ */
 export default function About() {
   const { colorMode } = useColorMode();
   const isDarkMode = colorMode === 'dark';

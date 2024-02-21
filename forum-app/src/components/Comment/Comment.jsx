@@ -11,6 +11,18 @@ import { Avatar } from '@chakra-ui/avatar';
 import { Input } from '@chakra-ui/input';
 import { Textarea } from '@chakra-ui/textarea';
 
+/**
+ * Renders a comment component.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.commentId - The ID of the comment.
+ * @param {Object} props.commentData - The data of the comment.
+ * @param {string} props.postId - The ID of the post.
+ * @param {Object} props.post - The post object.
+ * @param {function} props.setPost - The function to update the post object.
+ * @returns {JSX.Element} The Comment component.
+ */
 const Comment = ({ commentId, commentData, postId, post, setPost }) => {
   const { userData } = useContext(AuthContext);
   const { colorMode } = useColorMode();
@@ -29,6 +41,12 @@ const Comment = ({ commentId, commentData, postId, post, setPost }) => {
     fetchAuthorData();
   }, [commentData.author]);
 
+  /**
+   * Deletes a comment from the post.
+   * @async
+   * @function onDelete
+   * @returns {Promise<void>}
+   */
   const onDelete = async () => {
     try {
       await deleteComment(postId, commentId);
@@ -40,6 +58,12 @@ const Comment = ({ commentId, commentData, postId, post, setPost }) => {
     }
   };
 
+  /**
+   * Edits a comment by updating its content.
+   * @async
+   * @function editComment
+   * @returns {Promise<void>}
+   */
   const editComment = async () => {
     try {
       await updateComment(postId, commentId, commentContent);

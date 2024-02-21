@@ -15,6 +15,13 @@ import {
 } from '../../services/users.service';
 import { Link } from 'react-router-dom';
 
+/**
+ * Renders the Admin Dashboard component.
+ * This component displays a list of users with their avatars, usernames, and a button to toggle their role.
+ * The Admin Dashboard allows the admin to block or unblock users.
+ *
+ * @returns {JSX.Element} The rendered Admin Dashboard component.
+ */
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
 
@@ -24,6 +31,12 @@ export default function AdminDashboard() {
       .catch((e) => console.error('Error getting all users data:', e.message));
   }, []);
 
+  /**
+   * Handles the toggle action for a user's role.
+   * @param {string} userId - The ID of the user.
+   * @param {string} currentRole - The current role of the user.
+   * @returns {Promise<void>}
+   */
   const handleToggle = async (userId, currentRole) => {
     const newRole = currentRole === 'user' ? 'blocked' : 'user';
     await handleToggleRole(userId, newRole);

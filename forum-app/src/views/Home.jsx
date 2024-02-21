@@ -5,6 +5,13 @@ import { getAllUsers } from "../services/users.service";
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
+/**
+ * Renders the Home component.
+ * 
+ * @param {Object} props - The component props.
+ * @param {Function} props.updateUserData - The function to update user data.
+ * @returns {JSX.Element} The rendered Home component.
+ */
 export default function Home({ updateUserData }) {
   const [posts, setPosts] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);

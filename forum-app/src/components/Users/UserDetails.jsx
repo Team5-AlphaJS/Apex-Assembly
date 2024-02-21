@@ -4,6 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import { getUserData } from "../../services/users.service";
 import PropTypes from "prop-types";
 
+/**
+ * Renders the details of a user.
+ * 
+ * @component
+ * @param {Object} currentUser - The current user object.
+ * @returns {JSX.Element} The UserDetails component.
+ */
 export default function UserDetails({ currentUser }) {
   const id = useParams().id;
   const [userData, setUserData] = useState(null);

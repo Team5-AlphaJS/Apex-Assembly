@@ -23,6 +23,17 @@ import {
 } from '../../services/users.service';
 import { FiUser } from 'react-icons/fi';
 
+/**
+ * Renders a simple post component.
+ *
+ * @param {Object} props - The component props.
+ * @param {Function} props.updateUserData - Function to update user data.
+ * @param {string} props.postId - The ID of the post.
+ * @param {Object} props.postData - The data of the post.
+ * @param {Array} props.posts - The array of all posts.
+ * @param {Function} props.setPosts - Function to set the array of all posts.
+ * @returns {JSX.Element} The rendered SimplePost component.
+ */
 const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
   const { userData } = useContext(AuthContext);
   const [like, setLike] = useState(true);
@@ -48,6 +59,11 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
     fetchAuthorData();
   }, [postData?.author]);
 
+  /**
+   * Handles the like functionality for a post.
+   * Toggles the like state, updates the likes count, and updates the user and post data accordingly.
+   * @returns {Promise<void>} A promise that resolves when the like functionality is handled.
+   */
   const likeHandle = async () => {
     setLike(!like);
 

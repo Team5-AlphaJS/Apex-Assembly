@@ -12,6 +12,11 @@ import { Link, useParams } from 'react-router-dom';
 import { getUserData } from '../../services/users.service';
 import { getLikedPosts } from '../../services/post.service';
 
+/**
+ * Renders a component that displays the liked posts of a user.
+ *
+ * @returns {JSX.Element} The LikedPosts component.
+ */
 export default function LikedPosts() {
   const id = useParams().id;
   const [userData, setUserData] = useState(null);

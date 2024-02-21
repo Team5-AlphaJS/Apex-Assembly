@@ -1,10 +1,13 @@
-import { Box, Container, Flex, Heading, Text, Select, useColorMode } from "@chakra-ui/react";
+import { Container, Flex, Heading, Select, useColorMode } from "@chakra-ui/react";
 import { getAllPosts } from "../services/post.service";
 import { useEffect, useState } from "react";
 import SimplePost from "../components/SimplePost/SimplePost";
 
-
-
+/**
+ * Renders the Browse component, which displays a list of posts with sorting and filtering options.
+ *
+ * @returns {JSX.Element} The rendered Browse component.
+ */
 export default function Browse() {
   const [posts, setPosts] = useState([]);
   const [sortBy, setSortBy] = useState('');

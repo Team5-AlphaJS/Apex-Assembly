@@ -22,6 +22,16 @@ import {
 } from '../../validation/form-validation';
 
 
+/**
+ * Renders a form for creating or editing a post.
+ * 
+ * @param {Object} props - The component props.
+ * @param {Object} props.post - The post object.
+ * @param {Function} props.setPost - The function to update the post object.
+ * @param {Function} props.requestFunc - The function to handle the request for creating or editing a post.
+ * @param {boolean} props.onEdit - Indicates whether the form is for editing an existing post.
+ * @returns {JSX.Element} The CreateEditPost component.
+ */
 const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -39,6 +49,10 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
     setPost({ ...post, [prop]: e.target.value });
   };
 
+  /**
+   * Handles the form submission for creating or editing a post.
+   * @returns {Promise<void>} A promise that resolves when the submission is complete.
+   */
   const onSubmit = async () => {
     try {
       setLoading(true);

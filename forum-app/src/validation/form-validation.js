@@ -1,5 +1,16 @@
 import validator from 'validator';
 
+/**
+ * Email validation object.
+ *
+ * @typedef {Object} emailValidation
+ * @property {Object} required - Required validation rule.
+ * @property {boolean} required.value - Indicates if the email is required.
+ * @property {string} required.message - Error message for missing email.
+ * @property {Object} pattern - Pattern validation rule.
+ * @property {RegExp} pattern.value - Regular expression pattern for email validation.
+ * @property {string} pattern.message - Error message for invalid email format.
+ */
 export const emailValidation = {
   required: {
     value: true,
@@ -11,6 +22,17 @@ export const emailValidation = {
   },
 };
 
+/**
+ * Password validation object.
+ *
+ * @typedef {Object} passwordValidation
+ * @property {Object} required - Required validation rule.
+ * @property {boolean} required.value - Indicates if the email is required.
+ * @property {string} required.message - Error message for missing email.
+ * @property {Object} pattern - Pattern validation rule.
+ * @property {RegExp} pattern.value - Regular expression pattern for email validation.
+ * @property {string} pattern.message - Error message for invalid email format.
+ */
 export const passwordValidation = {
   required: {
     value: true,
@@ -22,6 +44,17 @@ export const passwordValidation = {
   },
 };
 
+/**
+ * Username validation object.
+ *
+ * @typedef {Object} usernameValidation
+ * @property {Object} required - Required validation rule.
+ * @property {boolean} required.value - Indicates if the email is required.
+ * @property {string} required.message - Error message for missing email.
+ * @property {Object} pattern - Pattern validation rule.
+ * @property {RegExp} pattern.value - Regular expression pattern for email validation.
+ * @property {string} pattern.message - Error message for invalid email format.
+ */
 export const usernameValidation = {
   required: {
     value: true,
@@ -33,6 +66,17 @@ export const usernameValidation = {
   },
 };
 
+/**
+ * First Name validation object.
+ *
+ * @typedef {Object} firstNameValidation
+ * @property {Object} required - Required validation rule.
+ * @property {boolean} required.value - Indicates if the email is required.
+ * @property {string} required.message - Error message for missing email.
+ * @property {Object} pattern - Pattern validation rule.
+ * @property {RegExp} pattern.value - Regular expression pattern for email validation.
+ * @property {string} pattern.message - Error message for invalid email format.
+ */
 export const firstNameValidation = {
   required: {
     value: true,
@@ -48,6 +92,17 @@ export const firstNameValidation = {
   },
 };
 
+/**
+ * Last Name validation object.
+ *
+ * @typedef {Object} lastNameValidation
+ * @property {Object} required - Required validation rule.
+ * @property {boolean} required.value - Indicates if the email is required.
+ * @property {string} required.message - Error message for missing email.
+ * @property {Object} pattern - Pattern validation rule.
+ * @property {RegExp} pattern.value - Regular expression pattern for email validation.
+ * @property {string} pattern.message - Error message for invalid email format.
+ */
 export const lastNameValidation = {
   required: {
     value: true,
@@ -63,6 +118,17 @@ export const lastNameValidation = {
   },
 };
 
+/**
+ * Post Title validation object.
+ *
+ * @typedef {Object} postTitleValidation
+ * @property {Object} required - Required validation rule.
+ * @property {boolean} required.value - Indicates if the email is required.
+ * @property {string} required.message - Error message for missing email.
+ * @property {Object} pattern - Pattern validation rule.
+ * @property {RegExp} pattern.value - Regular expression pattern for email validation.
+ * @property {string} pattern.message - Error message for invalid email format.
+ */
 export const postTitleValidation = {
   required: {
     value: true,
@@ -78,6 +144,17 @@ export const postTitleValidation = {
   },
 };
 
+/**
+ * Post Content validation object.
+ *
+ * @typedef {Object} postContentValidation
+ * @property {Object} required - Required validation rule.
+ * @property {boolean} required.value - Indicates if the email is required.
+ * @property {string} required.message - Error message for missing email.
+ * @property {Object} pattern - Pattern validation rule.
+ * @property {RegExp} pattern.value - Regular expression pattern for email validation.
+ * @property {string} pattern.message - Error message for invalid email format.
+ */
 export const postContentValidation = {
   required: {
     value: true,
@@ -93,6 +170,11 @@ export const postContentValidation = {
   },
 };
 
+/**
+ * Validates a URL.
+ * @param {string} value - The URL to be validated.
+ * @returns {(boolean|string)} - Returns true if the URL is valid, otherwise returns an error message.
+ */
 export const urlValidation = (value) => {
   if (!value) return true;
   if (validator.isURL(value)) {

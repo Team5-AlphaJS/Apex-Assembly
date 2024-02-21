@@ -12,6 +12,11 @@ import { Link, useParams } from 'react-router-dom';
 import { getUserData } from '../../services/users.service';
 import { getPostsByAuthor } from '../../services/post.service';
 
+/**
+ * Renders a component that displays the posts of a user.
+ *
+ * @returns {JSX.Element} The UserPosts component.
+ */
 export default function UserPosts() {
   const id = useParams().id;
   const [userPosts, setUserPosts] = useState([]);

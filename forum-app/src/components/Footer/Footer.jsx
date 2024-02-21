@@ -1,6 +1,11 @@
 import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Footer component.
+ *
+ * @returns {JSX.Element} The rendered Footer component.
+ */
 export default function Footer() {
   const isDarkMode = useColorModeValue(false, true);
   

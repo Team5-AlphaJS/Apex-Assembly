@@ -25,6 +25,11 @@ import Search from './components/Search/Search';
 import Drivers from './components/Drivers/Drivers';
 import LikedPosts from './components/Users/LikedPosts';
 
+/**
+ * The main component of the application.
+ *
+ * @returns {JSX.Element} The rendered App component.
+ */
 function App() {
   const [context, setContext] = useState({
     user: null,
@@ -49,6 +54,10 @@ function App() {
       })
   }, [user]);
 
+  /**
+   * Updates the user data in the context.
+   * @param {Object} newUserData - The new user data to be set in the context.
+   */
   const updateUserData = (newUserData) => {
     setContext((prevState) => ({
       ...prevState,
@@ -56,6 +65,10 @@ function App() {
     }));
   };
 
+  /**
+   * Checks if the user is an admin.
+   * @returns {boolean} True if the user is an admin, false otherwise.
+   */
   const isAdmin = () => {
     return context.userData?.role === 'admin';
   }

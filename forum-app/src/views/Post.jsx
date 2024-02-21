@@ -41,6 +41,14 @@ import {
 } from '../services/users.service';
 import PropTypes from 'prop-types';
 
+/**
+ * Represents a Post component.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Function} props.updateUserData - The function to update user data.
+ * @returns {JSX.Element} The Post component.
+ */
 const Post = ({ updateUserData }) => {
   const { userData } = useContext(AuthContext);
   const postId = useParams().id;
@@ -68,6 +76,10 @@ const Post = ({ updateUserData }) => {
     fetchAuthorData();
   }, [post?.author]);
 
+  /**
+   * Sorts the comments of a post based on their creation date.
+   * @returns {Array} - The sorted array of comments.
+   */
   const sortComments = () => {
     return Object.entries(post.comments).sort(
       (a, b) => b[1].createdOn - a[1].createdOn
@@ -88,6 +100,10 @@ const Post = ({ updateUserData }) => {
     fetchPost();
   }, [postId]);
 
+  /**
+   * Handles the like action for a post.
+   * @returns {Promise<void>} A promise that resolves when the like action is completed.
+   */
   const likeHandle = async () => {
     const updatedLike = !like;
 
@@ -119,6 +135,12 @@ const Post = ({ updateUserData }) => {
     }
   }, [userData]);
 
+  /**
+   * Handles the submission of deleting a post.
+   * @async
+   * @function onSubmitDelete
+   * @returns {Promise<void>}
+   */
   const onSubmitDelete = async () => {
     try {
       await deletePost(postId);
@@ -143,6 +165,10 @@ const Post = ({ updateUserData }) => {
     }
   };
 
+  /**
+   * Handles the action of submitting a comment for a post.
+   * @returns {Promise<void>} A promise that resolves when the comment is successfully uploaded.
+   */
   const onComment = async () => {
     const comment = {
       author: userData.username,

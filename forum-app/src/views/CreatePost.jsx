@@ -3,6 +3,11 @@ import { AuthContext } from "../context/AuthContext";
 import { uploadPost } from "../services/post.service";
 import CreateEditPost from "../components/CreateEditPost.jsx/CreateEditPost";
 
+/**
+ * Renders the CreatePost component.
+ * 
+ * @returns {JSX.Element} The CreatePost component.
+ */
 export default function CreatePost() {
   const { userData } = useContext(AuthContext);
   const [post, setPost] = useState({
