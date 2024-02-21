@@ -51,20 +51,20 @@ export default function Home({ updateUserData }) {
           </Box>
         </Flex>
         <Flex direction={'row'} justify={'center'}>
-          <Flex direction={'column'} p={4}>
-            <Heading size="md" textAlign={'center'} p={4}>Most commented posts</Heading>
-            {posts.filter(post => post[1].comments)
-              .sort((postA, postB) => Object.keys(postB[1].comments).length - Object.keys(postA[1].comments).length)
-              .slice(0, 11).map(post => {
+        <Flex direction={'column'} p={4}>
+            <Heading size="md" textAlign={'center'} p={4}>Newest posts</Heading>
+            {posts.sort((postA, postB) => postB[1].createdOn - postA[1].createdOn)
+              .slice(0, 11)
+              .map(post => {
                 const [postId, postData] = post
                 return <SimplePost key={post} updateUserData={updateUserData} postId={postId} postData={postData} posts={posts} setPosts={setPosts} />
               })}
           </Flex>
           <Flex direction={'column'} p={4}>
-            <Heading size="md" textAlign={'center'} p={4}>Newest posts</Heading>
-            {posts.sort((postA, postB) => postB[1].createdOn - postA[1].createdOn)
-              .slice(0, 11)
-              .map(post => {
+            <Heading size="md" textAlign={'center'} p={4}>Most commented posts</Heading>
+            {posts.filter(post => post[1].comments)
+              .sort((postA, postB) => Object.keys(postB[1].comments).length - Object.keys(postA[1].comments).length)
+              .slice(0, 11).map(post => {
                 const [postId, postData] = post
                 return <SimplePost key={post} updateUserData={updateUserData} postId={postId} postData={postData} posts={posts} setPosts={setPosts} />
               })}

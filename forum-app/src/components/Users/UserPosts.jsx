@@ -140,7 +140,7 @@ export default function UserPosts() {
                 bg={isDarkMode ? 'gray.700' : 'white'}
                 border={'1px solid black'}
               >
-                Details
+                See Details
               </Button>
             </Box>
             <Box

@@ -54,6 +54,7 @@ const Post = ({ updateUserData }) => {
   const [like, setLike] = useState(true);
   const [authorAvatar, setAuthorAvatar] = useState('');
   const [authorUid, setAuthorUid] = useState('');
+  const [likesCount, setLikesCount] = useState(0);
   const { colorMode } = useColorMode();
   const isDarkMode = colorMode === 'dark';
 
@@ -80,8 +81,9 @@ const Post = ({ updateUserData }) => {
         const fetchedPost = await getPost(postId);
         const fetchedPostData = fetchedPost.val();
         setPost(fetchedPostData);
+        setLikesCount(Object.keys(fetchedPostData?.likes).length);
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error('Error fetching posts:', error);
       }
     };
     fetchPost();
@@ -102,6 +104,8 @@ const Post = ({ updateUserData }) => {
           }
         );
         setLike(updatedLike);
+        const newLikesCount = like ? likesCount + 1 : likesCount - 1;
+        setLikesCount(newLikesCount);
       } catch (e) {
         console.error(e.message);
       }
@@ -248,9 +252,12 @@ const Post = ({ updateUserData }) => {
                     </span>
                   </span>
                 </Button>
-                <Spacer />
               </>
             )}
+            <Text color="gray.500" mt={2}>
+              Likes: {likesCount}
+            </Text>
+            <Spacer />
             {userData && post && userData?.username === post?.author && (
               <Button
                 size={'md'}

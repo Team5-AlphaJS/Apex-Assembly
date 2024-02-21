@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Heading, Text, Select } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Text, Select, useColorMode } from "@chakra-ui/react";
 import { getAllPosts } from "../services/post.service";
 import { useEffect, useState } from "react";
 import SimplePost from "../components/SimplePost/SimplePost";
@@ -9,6 +9,8 @@ export default function Browse() {
   const [posts, setPosts] = useState([]);
   const [sortBy, setSortBy] = useState('');
   const [filterByCategory, setFilterByCategory] = useState('');
+  const { colorMode } = useColorMode();
+  const isDarkMode = colorMode === 'dark';
 
   useEffect(() => {
     Promise.all([getAllPosts()])
@@ -16,7 +18,7 @@ export default function Browse() {
         const postsData = postSnapshot.val() || {};
 
         let postsArray = Object.entries(postsData).map(([postId, postData]) => ({ id: postId, ...postData }));
-        
+
         if (filterByCategory) {
           postsArray = postsArray.filter(post => post.category === filterByCategory);
         }
@@ -45,9 +47,12 @@ export default function Browse() {
   return (
     <div>
       <Container maxW="100%">
-        <Heading textAlign={'center'} mb={3}>All posts</Heading>
-        <Flex justifyContent="space-between" mb={4}>
+        <Heading textAlign={'center'} mb={5}>All posts</Heading>
+        <Flex justifyContent="space-between" mb={6}>
           <Select
+            bgColor={isDarkMode ? 'gray.700' : 'gray.300'}
+            focusBorderColor="orange.300"
+            mr={5}
             placeholder="Sort by"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -57,11 +62,13 @@ export default function Browse() {
             <option value="likes">Most Likes</option>
           </Select>
           <Select
+            bgColor={isDarkMode ? 'gray.700' : 'gray.300'}
+            focusBorderColor="orange.300"
+            mr={3}
             placeholder="Filter by category"
             value={filterByCategory}
             onChange={(e) => setFilterByCategory(e.target.value)}
           >
-            <option value="">All categories</option>
             <option value="drivers">Drivers</option>
             <option value="tracks">Tracks</option>
             <option value="teams">Teams</option>

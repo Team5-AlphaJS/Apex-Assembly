@@ -147,7 +147,7 @@ const SimplePost = ({ updateUserData, postId, postData, posts, setPosts }) => {
             </span>
           </Button>
         )}
-        <Text color="gray.500" mb={2}>Likes: {likesCount}</Text>
+        <Text color="gray.500" mt={2}>Likes: {likesCount}</Text>
         <Button
           as={Link}
           to={`/post/${postId}`}
