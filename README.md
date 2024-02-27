@@ -30,7 +30,9 @@ npm install
 ```
 
 ## Usage
+The project is deployed and handled by Firebase Hosting. Navigate to https://formula1-forum-app.web.app to start using the app.
 
+Alternative:
 1. Start the development server:
 
 ```js
