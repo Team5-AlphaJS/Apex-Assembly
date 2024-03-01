@@ -51,10 +51,10 @@ export default function Drivers() {
               p={4}
               border={isDarkMode ? '1px solid white' : '1px solid black'}
               bgColor={
-                driver.team_name === 'Alfa Romeo'
-                  ? 'green.400'
-                  : driver.team_name === 'AlphaTauri'
-                  ? 'blue.400'
+                driver.team_name === 'Kick Sauber'
+                  ? 'green.300'
+                  : driver.team_name === 'RB'
+                  ? 'blue.500'
                   : driver.team_name === 'Alpine'
                   ? 'pink.400'
                   : driver.team_name === 'Aston Martin'
@@ -79,17 +79,14 @@ export default function Drivers() {
                 {driver.full_name}
               </Text>
               <Text align={'center'}>
-                Team:{' '}
-                <b>
-                {driver.team_name === 'AlphaTauri'
-                  ? 'Racing Bulls'
-                  : driver.team_name === 'Alfa Romeo'
-                  ? 'Kick Sauber'
-                  : driver.team_name}
-                </b>
+                Team: <b>{driver.team_name}</b>
               </Text>
-              <Text align={'center'}>Driver Number: <b>{driver.driver_number}</b></Text>
-              <Text align={'center'}>Nationality: <b>{driver.country_code}</b></Text>
+              <Text align={'center'}>
+                Driver Number: <b>{driver.driver_number}</b>
+              </Text>
+              <Text align={'center'}>
+                Nationality: <b>{driver.country_code}</b>
+              </Text>
               <Center>
                 <Image src={driver.headshot_url} alt="no photo" />
               </Center>
