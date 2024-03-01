@@ -42,6 +42,13 @@ export default function Drivers() {
         </Heading>
       </Flex>
       <br />
+      {drivers.length === 0 && (
+        <Center>
+          <Text fontSize="xl" fontWeight="bold">
+            No driver information available.
+          </Text>
+        </Center>
+      )}
       <Flex flexWrap="wrap" justifyContent="center" gap={5} mb={5}>
         {drivers
           .sort((a, b) => a.team_name.localeCompare(b.team_name))
