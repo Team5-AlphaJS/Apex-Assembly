@@ -19,7 +19,7 @@ export default function Drivers() {
   const [drivers, setDrivers] = useState([]);
 
   useEffect(() => {
-    fetch('https://api.openf1.org/v1/drivers?session_key=latest')
+    fetch('https://api.openf1.org/v1/drivers?session_key=9484')
       .then((response) => response.json())
       .then(setDrivers)
       .catch((error) =>
