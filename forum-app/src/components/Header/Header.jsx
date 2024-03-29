@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { logoutUser } from "../../services/auth.service";
-import { Avatar, Box, Button, IconButton, Image, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Avatar, Box, IconButton, Image, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react";
 import blackLogo from '../../assets/black-helmet.svg';
 import whiteLogo from '../../assets/white-helmet.svg';
-import { FiEdit, FiMoon, FiSun, FiUser } from "react-icons/fi";
+import { FiEdit, FiMoon, FiSun, FiUser, FiX } from "react-icons/fi";
 
 /**
  * Renders the header component.
@@ -95,25 +95,25 @@ export default function Header() {
           <>
             {`Welcome, ${userData?.username}`}
             <Menu>
-              <MenuButton as={Box} display={'inline-block'} cursor={'pointer'}>
+              <MenuButton as={Box} _hover={{ opacity: 0.7 }} display={'inline-block'} cursor={'pointer'}>
                 <Avatar name={userData?.username} src={userData?.avatarUrl} size="md" mr={1} />
               </MenuButton>
               <MenuList>
                 <MenuItem as={NavLink} _hover={{bg: 'orange.300', color: 'black'}} to={`/user/${user?.uid}`} icon={<FiUser />}>User Details</MenuItem>
                 <MenuItem as={NavLink} _hover={{bg: 'orange.300', color: 'black'}} to={`/user/edit`} icon={<FiEdit />}>Edit User</MenuItem>
+                <MenuItem as={NavLink} _hover={{bg: 'red.400', color: 'black'}} onClick={logout} icon={<FiX />}>Logout</MenuItem>
               </MenuList>
             </Menu>
-            <Button onClick={logout} bg="orange.300" size={'sm'} w={20} textColor={'black'}>Logout</Button>
           </>
         )
         : (<>
-          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/login">Log In</NavLink>
           <NavLink to="/register">Register</NavLink>
         </>) }
         <IconButton
           icon={isDarkMode ? <FiSun /> : <FiMoon />}
           size="md"
-          ml={5}
+          mr={3}
           onClick={toggleColorMode}
           color={colorMode}
         />
