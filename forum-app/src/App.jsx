@@ -24,6 +24,7 @@ import UserPosts from './components/Users/UserPosts';
 import Search from './components/Search/Search';
 import Drivers from './components/Drivers/Drivers';
 import LikedPosts from './components/Users/LikedPosts';
+import './App.css';
 
 /**
  * The main component of the application.
@@ -80,8 +81,8 @@ function App() {
           <Grid
             templateAreas={`"header" "main" "footer"`}
             templateRows="70px 1fr 60px"
-            minHeight="100vh"
-            minWidth='100vw'
+            minHeight="100dvh"
+            minWidth='100dvw'
             gap={1}
           >
             <GridItem area={'header'} position={'sticky'} top={0} zIndex={10}>

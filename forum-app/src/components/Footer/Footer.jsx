@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <Box
       borderTop="5px solid"
-      borderTopColor={"orange.300"}
+      borderTopColor={"orange.400"}
       borderBottom="2px solid"
       height="60px"
       align="center"
