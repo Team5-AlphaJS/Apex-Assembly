@@ -4,6 +4,7 @@ import { getAllPosts } from "../services/post.service";
 import { getAllUsers } from "../services/users.service";
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
+import f1video from '../assets/f1bg.mp4';
 
 /**
  * Renders the Home component.
@@ -28,23 +29,40 @@ export default function Home({ updateUserData }) {
   }, []);
 
   return (
-    <Box className>
+    <Box>
       <Container maxW="100%">
-        <Box bgImage="https://c4.wallpaperflare.com/wallpaper/442/68/841/ayrton-senna-helmet-gloves-formula-1-mclaren-mp4-hd-wallpaper-preview.jpg"
-          bgSize={'cover'}
-          w={'99%'}
-          bgPosition="center"
+        <Box 
+          w={'99.5%'}
+          h={'400px'}
           color="white"
-          textAlign="center"
           mb={'2rem'}
-          py={20}>
-          <Heading textAlign={'center'} mb={3} style={{
+          overflow={'hidden'}
+          position={'relative'}
+          >
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ position: 'absolute', top: 0, left: 0, minWidth: '100%', minHeight: '100%'}}
+          >
+            <source src={f1video} type="video/mp4" />
+          </video>
+          <Heading mb={3} style={{
             WebkitTextStroke: '1px black',
             textStroke: '1px black',
+            position: 'absolute',
+            top: '35%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
           }}>Welcome to Team 5&apos;s Apex Assembly</Heading>
-          <Heading textAlign={'center'} size={'md'} style={{
+          <Heading size={'md'} style={{
             WebkitTextStroke: '1px black',
             textStroke: '1px black',
+            position: 'absolute',
+            top: '45%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
           }}>A forum about everything Formula 1.</Heading>
         </Box>
         <Flex mb={8} mt={8}>
