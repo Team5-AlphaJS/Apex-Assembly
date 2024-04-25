@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { uploadPost } from "../services/post.service";
-import CreateEditPost from "../components/CreateEditPost.jsx/CreateEditPost";
+import CreateEditPost from "../components/CreateEditPost/CreateEditPost";
 
 /**
  * Renders the CreatePost component.

@@ -10,6 +10,7 @@ import {
   Textarea,
   useColorMode,
   useToast,
+  Image,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -18,13 +19,13 @@ import { useForm } from 'react-hook-form';
 import {
   postContentValidation,
   postTitleValidation,
-  urlValidation,
+  // urlValidation,
 } from '../../validation/form-validation';
-
+import { uploadPostImage } from '../../services/image.service';
 
 /**
  * Renders a form for creating or editing a post.
- * 
+ *
  * @param {Object} props - The component props.
  * @param {Object} props.post - The post object.
  * @param {Function} props.setPost - The function to update the post object.
@@ -44,6 +45,7 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
     reset,
     formState: { errors },
   } = useForm();
+  const [postImageAttach, setPostImageAttach] = useState(null);
 
   const updatePost = (prop) => (e) => {
     setPost({ ...post, [prop]: e.target.value });
@@ -56,7 +58,13 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
   const onSubmit = async () => {
     try {
       setLoading(true);
+      const postImageURL = await uploadPostImage(postImageAttach);
+      post.imgUrl = postImageURL;
       await requestFunc(post);
+      // this approach wont work because
+      // we are calling the function with a copy of the post object
+      // and onEdit validates with the post object state which wont be updated
+      // await requestFunc({ ...post, imgUrl: postImageURL });
       toast({
         title: `Post ${onEdit ? 'edited' : 'created'} successfully.`,
         status: 'success',
@@ -132,19 +140,25 @@ const CreateEditPost = ({ post, setPost, requestFunc, onEdit }) => {
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.imgUrl}>
-          <FormLabel>Image URL: </FormLabel>
+          <FormLabel>Post Image (optional):</FormLabel>
           <Input
-            type="text"
-            placeholder="Image Url (optional)"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setPostImageAttach(e.target.files[0])}
+            variant={'flushed'}
             focusBorderColor="orange.300"
             mb={4}
-            value={post.imgUrl}
-            {...register('imgUrl', { validate: urlValidation })}
-            onChange={updatePost('imgUrl')}
+            // value={post.imgUrl}
+            // {...register('imgUrl', { validate: urlValidation })}
           />
-          <FormErrorMessage mb={2}>
-            {errors.imgUrl && errors.imgUrl.message}
-          </FormErrorMessage>
+          {postImageAttach && (
+            <Image
+              src={URL.createObjectURL(postImageAttach)}
+              alt="Post Preview"
+              mb={4}
+              w={300}
+            />
+          )}
         </FormControl>
         <Button
           type="submit"

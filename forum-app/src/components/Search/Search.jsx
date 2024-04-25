@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getAllPosts } from '../../services/post.service';
-import { Box, Center, Flex, Heading, VStack } from '@chakra-ui/react';
+import { Box, Center, Flex, Heading } from '@chakra-ui/react';
 import SimplePost from '../SimplePost/SimplePost';
 
 /**
@@ -55,7 +55,7 @@ export default function Search() {
             </Heading>
           </Flex>
           <br />
-          <VStack spacing={4} mb={'3rem'}>
+          <Flex flexWrap={'wrap'} gap={5} justifyContent={'center'} mb={'3rem'}>
             {filteredPosts.map((post) => (
               <SimplePost
                 key={post.id}
@@ -64,7 +64,7 @@ export default function Search() {
                 setPosts={setPosts}
               />
             ))}
-          </VStack>
+          </Flex>
         </Box>
       ) : (
         <Box justifyContent={'center'}>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPost } from "../services/post.service";
 import { changePost } from "../services/post.service";
-import CreateEditPost from "../components/CreateEditPost.jsx/CreateEditPost";
+import CreateEditPost from "../components/CreateEditPost/CreateEditPost";
 
 /**
  * Renders a component for editing a post.

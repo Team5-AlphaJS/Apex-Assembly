@@ -14,7 +14,10 @@ import { useNavigate } from 'react-router-dom';
 import { editUser } from '../../services/users.service';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { firstNameValidation, lastNameValidation, urlValidation } from '../../validation/form-validation';
+import {
+  firstNameValidation,
+  lastNameValidation,
+} from '../../validation/form-validation';
 
 /**
  * EditUser component for updating user details.
@@ -27,7 +30,6 @@ import { firstNameValidation, lastNameValidation, urlValidation } from '../../va
 export default function EditUser({ userData, updateUserData }) {
   const [user, setUser] = useState({
     ...userData,
-    avatarUrl: userData?.avatarUrl || '',
     firstName: userData?.firstName || '',
     lastName: userData?.lastName || '',
   });
@@ -51,7 +53,7 @@ export default function EditUser({ userData, updateUserData }) {
     try {
       const updatedUserData = await editUser(user);
       setUser(updatedUserData);
-      await updateUserData(user);
+      updateUserData(user);
       toast({
         title: 'User updated successfully.',
         status: 'success',
@@ -74,58 +76,53 @@ export default function EditUser({ userData, updateUserData }) {
 
   return (
     <Center>
-      <Box border={'1px solid'} borderRadius={'lg'} p={4} mt={'40px'}>
-        <Heading mb={4} fontSize={'25px'}>Edit User Details</Heading>
+      <Box
+        border={'1px solid'}
+        borderRadius={'lg'}
+        p={4}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+        w={'300px'}
+      >
+        <Heading mb={4} fontSize={'25px'}>
+          Edit User Details
+        </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl isInvalid={errors.avatarUrl}>
-            <FormLabel>Avatar URL: </FormLabel>
-            <Input
-              type="text"
-              focusBorderColor='orange.300'
-              placeholder="Avatar URL Here"
-              name='avatarUrl'
-              defaultValue={user.avatarUrl}
-              {...register("avatarUrl", { validate: urlValidation })}
-              onChange={onInputChange('avatarUrl')}
-              mb={4}
-            />
-            <FormErrorMessage>{errors.avatarUrl && errors.avatarUrl.message}</FormErrorMessage>
-          </FormControl>
           <FormControl isInvalid={errors.firstName}>
             <FormLabel>First name: </FormLabel>
             <Input
               type="text"
-              focusBorderColor='orange.300'
+              focusBorderColor="orange.300"
               placeholder="First Name Here"
-              name='firstName'
+              name="firstName"
               defaultValue={user.firstName}
-              {...register("firstName", firstNameValidation)}
+              {...register('firstName', firstNameValidation)}
               onChange={onInputChange('firstName')}
               mb={4}
             />
-            <FormErrorMessage>{errors.firstName && errors.firstName.message}</FormErrorMessage>
+            <FormErrorMessage>
+              {errors.firstName && errors.firstName.message}
+            </FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.lastName}>
             <FormLabel>Last name: </FormLabel>
             <Input
               type="text"
-              focusBorderColor='orange.300'
+              focusBorderColor="orange.300"
               placeholder="Last Name Here"
-              name='lastName'
+              name="lastName"
               defaultValue={user.lastName}
-              {...register("lastName", lastNameValidation)}
+              {...register('lastName', lastNameValidation)}
               onChange={onInputChange('lastName')}
             />
-            <FormErrorMessage>{errors.lastName && errors.lastName.message}</FormErrorMessage>
+            <FormErrorMessage>
+              {errors.lastName && errors.lastName.message}
+            </FormErrorMessage>
           </FormControl>
-          {/* <label htmlFor="phoneNumber">Phone number: </label>
-      <input
-        type="text"
-        name="phoneNumber"
-        id="phoneNumber"
-        value={user.phoneNumber}
-        onChange={onInputChange('phoneNumber')}
-      /><br /> */}
           <Button
             type="submit"
             mt={4}

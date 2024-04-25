@@ -1,4 +1,4 @@
-import { Container, Flex, Grid, Heading, Select, useColorMode } from "@chakra-ui/react";
+import { Container, Flex, Heading, Select, useColorMode } from "@chakra-ui/react";
 import { getAllPosts } from "../services/post.service";
 import { useEffect, useState } from "react";
 import SimplePost from "../components/SimplePost/SimplePost";
@@ -78,11 +78,11 @@ export default function Browse() {
             <option value="cars">Cars</option>
           </Select>
         </Flex>
-        <Grid mx={4} templateColumns='repeat(3, 1fr)' gap={6} justifyItems={'center'}>
+        <Flex flexWrap={'wrap'} gap={6} justifyContent={'center'}>
           {posts.map(post => (
             <SimplePost key={post.id} postId={post.id} postData={post} />
           ))}
-        </Grid>
+        </Flex>
       </Container>
     </div>
   );

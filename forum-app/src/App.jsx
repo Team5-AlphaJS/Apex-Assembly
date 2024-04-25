@@ -102,7 +102,7 @@ function App() {
                   <Route path="/create-post" element={<AuthGuard><CreatePost /></AuthGuard>} />
                   <Route path="/edit-post/:id" element={<AuthGuard><EditPost /></AuthGuard>} />
                   <Route path="/post/:id" element={<AuthGuard> <Post updateUserData={updateUserData} /> </AuthGuard>} />
-                  <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} /></AuthGuard>} />
+                  <Route path="/user/:id" element={<AuthGuard><UserDetails currentUser={context.userData} updateUserData={updateUserData} /></AuthGuard>} />
                   <Route path="/user/:id/posts" element={<AuthGuard><UserPosts /></AuthGuard>} />
                   <Route path="/user/:id/liked-posts" element={<AuthGuard><LikedPosts /></AuthGuard>} />
                   <Route path="/user/edit" element={<AuthGuard><EditUser userData={context.userData} updateUserData={updateUserData} /></AuthGuard>} />

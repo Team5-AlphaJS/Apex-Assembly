@@ -99,7 +99,7 @@ export default function Header() {
                 <Avatar name={userData?.username} src={userData?.avatarUrl} size="md" mr={1} />
               </MenuButton>
               <MenuList>
-                <MenuItem as={NavLink} _hover={{bg: 'orange.300', color: 'black'}} to={`/user/${user?.uid}`} icon={<FiUser />}>User Details</MenuItem>
+                <MenuItem as={NavLink} _hover={{bg: 'orange.300', color: 'black'}} to={`/user/${user?.uid}`} icon={<FiUser />}>User Profile</MenuItem>
                 <MenuItem as={NavLink} _hover={{bg: 'orange.300', color: 'black'}} to={`/user/edit`} icon={<FiEdit />}>Edit User</MenuItem>
                 <MenuItem as={NavLink} _hover={{bg: 'red.400', color: 'black'}} onClick={logout} icon={<FiX />}>Logout</MenuItem>
               </MenuList>

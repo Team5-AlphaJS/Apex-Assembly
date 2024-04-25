@@ -48,22 +48,15 @@ export default function Home({ updateUserData }) {
           >
             <source src={f1video} type="video/mp4" />
           </video>
-          <Heading mb={3} style={{
+          <Heading size={'xl'} style={{
             WebkitTextStroke: '1px black',
             textStroke: '1px black',
             position: 'absolute',
-            top: '35%',
+            top: '40%',
             left: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}>Welcome to Team 5&apos;s Apex Assembly</Heading>
-          <Heading size={'md'} style={{
-            WebkitTextStroke: '1px black',
-            textStroke: '1px black',
-            position: 'absolute',
-            top: '45%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}>A forum about everything Formula 1.</Heading>
+            transform: 'translate(-50%, -50%)',
+            textAlign: 'center'
+          }}>Welcome to Apex Assembly<br />The forum about everything Formula 1</Heading>
         </Box>
         <Flex mb={8} mt={8}>
           <Box p={4} bgColor={"gray.300"} borderRadius="md" flex="1" mx={4}>
